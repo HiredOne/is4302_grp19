@@ -47,6 +47,7 @@ contract RequestApprovalManagement {
         userContract = userAddress;
         permissionsContract = permissionsAddress;
         rolesContract = rolesAddress;
+        totalNumberOfRequest = 0;
     }
 
     // Admin functions
@@ -77,6 +78,8 @@ contract RequestApprovalManagement {
 
         }
 
+        requestsMapping[requestID].updatedDateTime = block.timestamp;
+        requestsMapping[requestID].adminAddress = msg.sender;
         requestsMapping[requestID].requestStatus = statusEnum.approved;
     }
 
@@ -85,7 +88,60 @@ contract RequestApprovalManagement {
         requestsMapping[requestID].requestStatus = statusEnum.rejected;
     }
 
-    // User functions
+    // Creating Requests
+
+    function createNewRoleRequest(string memory roleName) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", roleName, "", 0,0,0);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+    function removeRoleRequest(uint256 roleID, uint256 userID) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID,0,userID);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+    function addDatasetToRolesRequest(string memory permissionName, uint256 roleID) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", permissionName, roleID,0,0);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+    function removeDatasetFromRolesRequest(uint256 permissionID, uint256 roleID) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, permissionID,0);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+    function addUsersToRolesRequest(uint256 userID, uint256 roleID) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+    function removeUsersFromRolesRequest(uint256 userID, uint256 roleID) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
+        requestsMapping[totalNumberOfRequest] = newRequest;
+        totalNumberOfRequest = totalNumberOfRequest + 1;
+    }
+
+
+    // Getters
+
+
+    function getRequestStatus(uint256 requestID) public returns(requestTypeEnum) {
+        return requestsMapping[requestID].requestType;
+    }
+
+    function getRequestAdminRemarks(uint256 requestID) public returns(string memory) {
+        return requestsMapping[requestID].adminAdditionalRemarks;
+    }
+
+
+
+    // Helper functions
+    
     function createNewRole(string memory roleName) public {
         // Role Creation
         rolesContract.createRole(roleName);
@@ -127,14 +183,5 @@ contract RequestApprovalManagement {
     }
 
 
-    // Getters
-
-    function getRequestStatus(uint256 requestID) public returns(requestTypeEnum) {
-        return requestsMapping[requestID].requestType;
-    }
-
-    function getRequestAdminRemarks(uint256 requestID) public returns(string memory) {
-        return requestsMapping[requestID].adminAdditionalRemarks;
-    }
 
 }
