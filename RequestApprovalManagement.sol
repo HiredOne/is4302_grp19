@@ -1,5 +1,7 @@
 pragma solidity ^0.5.0;
-
+import "./User.sol";
+import "./Permissions.sol";
+import "./Roles.sol";
 // import "hardhat/console.sol";
 
 contract RequestApprovalManagement {
@@ -9,160 +11,130 @@ contract RequestApprovalManagement {
         rejected
     }
 
-    struct CreateNewRoleRequest {
+    enum requestTypeEnum {
+        createNewRoleRequest,
+        removeRoleRequest,
+        addDatasetToRoleRequest,
+        removeDatasetFromRoleRequest,
+        addUserToRoleRequest,
+        removeUserFromRoleRequest
+    }
+
+    struct Request {
         address requesterAddress;
         address adminAddress;
         statusEnum requestStatus;
+        requestTypeEnum requestType;
         uint256 creationDateTime;
         uint256 updatedDateTime;
         string adminAdditionalRemarks;
+        string roleName;
+        string permissionName;
+        uint256 roleID; 
+        uint256 permissionID;
+        uint256 userID;
     }
 
-    struct RemoveRoleRequest {
-        address requesterAddress;
-        address adminAddress;
-        statusEnum requestStatus;
-        uint256 creationDateTime;
-        uint256 updatedDateTime;
-        string adminAdditionalRemarks;
-    }
+    User userContract;
+    Permissions permissionsContract;
+    Roles rolesContract;   
 
-    struct AddDatasetToRoleRequest {
-        address requesterAddress;
-        address adminAddress;
-        statusEnum requestStatus;
-        uint256 creationDateTime;
-        uint256 updatedDateTime;
-        string adminAdditionalRemarks;
-    }
-
-    struct RemoveDatasetFromRoleRequest {
-        address requesterAddress;
-        address adminAddress;
-        statusEnum requestStatus;
-        uint256 creationDateTime;
-        uint256 updatedDateTime;
-        string adminAdditionalRemarks;
-    }
-
-    struct AddUserToRoleRequest {
-        address requesterAddress;
-        address adminAddress;
-        statusEnum requestStatus;
-        uint256 creationDateTime;
-        uint256 updatedDateTime;
-        string adminAdditionalRemarks;
-    }
-
-    struct RemoveUserFromRoleRequest {
-        address requesterAddress;
-        address adminAddress;
-        statusEnum requestStatus;
-        uint256 creationDateTime;
-        uint256 updatedDateTime;
-        string adminAdditionalRemarks;
-    }
-
-    mapping(uint256 => CreateNewRoleRequest) public createNewRoleRequestMapping;
-    mapping(uint256 => RemoveRoleRequest) public removeRoleRequestMapping;
-    mapping(uint256 => AddDatasetToRoleRequest) public addDatasetToRoleRequestMapping;
-    mapping(uint256 => RemoveDatasetFromRoleRequest) public removeDatasetFromRoleRequestMapping;
-    mapping(uint256 => AddUserToRoleRequest) public addUserToRoleRequestMapping;
-    mapping(uint256 => RemoveUserFromRoleRequest) public removeUserFromRoleRequestMapping;
+    mapping(uint256 => Request) public requestsMapping;
 
     uint256 totalNumberOfRequest;
 
-    constructor() public {}
-
-    // Admin functions
-    function approveRequest(uint256 requestId) public {
-
-        if (createNewRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        } else if (removeRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        } else if (addDatasetToRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        } else if (removeDatasetFromRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        } else if (addUserToRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        } else if (removeUserFromRoleRequestMapping[requestId].requesterAddress != address(0)) {
-
-        }
+    constructor(User userAddress, Permissions permissionsAddress, Roles rolesAddress) public {
+        userContract = userAddress;
+        permissionsContract = permissionsAddress;
+        rolesContract = rolesAddress;
     }
 
-    function rejectRequest(uint256 requestId, string memory adminAdditionalRemarks) public {
+    // Admin functions
+    function approveRequest(uint256 requestID) public {
+        if (requestsMapping[requestID].requestType == requestTypeEnum.createNewRoleRequest) {
 
-        if (createNewRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            createNewRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            createNewRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+            createNewRole(requestsMapping[requestID].roleName);
 
-        } else if (removeRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            removeRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            removeRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+        } else if (requestsMapping[requestID].requestType == requestTypeEnum.removeRoleRequest) {
 
-        } else if (addDatasetToRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            addDatasetToRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            addDatasetToRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+            removeRole(requestsMapping[requestID].roleID,requestsMapping[requestID].userID);
 
-        } else if (removeDatasetFromRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            removeDatasetFromRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            removeDatasetFromRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+        } else if (requestsMapping[requestID].requestType == requestTypeEnum.addDatasetToRoleRequest) {
 
-        } else if (addUserToRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            addUserToRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            addUserToRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+            addDatasetToRoles(requestsMapping[requestID].permissionName, requestsMapping[requestID].roleID);
 
-        } else if (removeUserFromRoleRequestMapping[requestId].requesterAddress != address(0)) {
-            removeUserFromRoleRequestMapping[requestId].adminAdditionalRemarks = adminAdditionalRemarks;
-            removeUserFromRoleRequestMapping[requestId].requestStatus = statusEnum.rejected;
+        } else if (requestsMapping[requestID].requestType == requestTypeEnum.removeDatasetFromRoleRequest) {
+
+            removeDatasetFromRoles(requestsMapping[requestID].permissionID, requestsMapping[requestID].roleID);
+
+        } else if (requestsMapping[requestID].requestType == requestTypeEnum.addUserToRoleRequest) {
+
+            addUsersToRoles(requestsMapping[requestID].userID, requestsMapping[requestID].roleID);
+
+        } else if (requestsMapping[requestID].requestType == requestTypeEnum.removeUserFromRoleRequest) {
+
+            removeUsersFromRoles(requestsMapping[requestID].userID, requestsMapping[requestID].roleID);
 
         }
+
+        requestsMapping[requestID].requestStatus = statusEnum.approved;
+    }
+
+    function rejectRequest(uint256 requestID, string memory adminAdditionalRemarks) public {
+        requestsMapping[requestID].adminAdditionalRemarks = adminAdditionalRemarks;
+        requestsMapping[requestID].requestStatus = statusEnum.rejected;
     }
 
     // User functions
     function createNewRole(string memory roleName) public {
         // Role Creation
-
-        // Create Permissions
-
-        // Give Permission to role
-
-        // Give role to permission
-
-        // Give user role
+        rolesContract.createRole(roleName);
     }
 
-    function removeRole(uint256 roleId) public {
+    function removeRole(uint256 roleID, uint256 userID) public {
         //  Remove role
-
-
+        rolesContract.removeRoleUser(roleID, userID);
     }
 
-    function addDatasetToRoles(string memory datasetName) public {
-        // Create Permissions
-
+    function addDatasetToRoles(string memory permissionName, uint256 roleID) public {
+         // Create Permissions
+        uint256 permissionID = permissionsContract.createPermission(permissionName);
         // Give Permission to role
-
+        permissionsContract.givePermissionRole(permissionID, roleID);
         // Give role to permission
+        rolesContract.giveRolePermission(roleID, permissionID); 
     }
 
-    function removeDatasetFromRoles(string memory datasetName) public {
-        // Remove permissions
-        
+    function removeDatasetFromRoles(uint256 permissionID, uint256 roleID) public {
         // Remove Permission to role
-
+        permissionsContract.removePermissionRole(permissionID, roleID); 
         // Remove role to permission
-
+        rolesContract.removeRolePermission(roleID, permissionID); 
     }
 
-    function addUsersToRoles(uint256 userId, uint256 roleId) public {
-        // Give user role
+    function addUsersToRoles(uint256 userID, uint256 roleID) public {
+        // Give user to role
+        rolesContract.giveRoleUser(roleID, userID);
+        // Give role to user
+        userContract.giveUserRole(userID, roleID);
     }
 
-    function removeUsersFromRoles(uint256 userId, uint256 roleId) public {
+    function removeUsersFromRoles(uint256 userID, uint256 roleID) public {
         // Remove user from role
-
+        rolesContract.removeRoleUser(roleID, userID);
+        // Remove role from user
+        userContract.removeUserRole(userID, roleID);
     }
+
+
+    // Getters
+
+    function getRequestStatus(uint256 requestID) public returns(requestTypeEnum) {
+        return requestsMapping[requestID].requestType;
+    }
+
+    function getRequestAdminRemarks(uint256 requestID) public returns(string memory) {
+        return requestsMapping[requestID].adminAdditionalRemarks;
+    }
+
 }
