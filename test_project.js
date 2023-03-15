@@ -43,7 +43,7 @@ contract('IS4302 Project', function (accounts) {
 
     it("Test Add Users to Roles", async () => {
        // An account create Add User to role request
-        await requestApprovalManagementInstance.addUsersToRolesRequest(1, 0,  { from: accounts[2] });
+        await requestApprovalManagementInstance.addUsersToRolesRequest(accounts[2], 0,  { from: accounts[2] });
         // Admin account approve request
         await requestApprovalManagementInstance.approveRequest(2, { from: accounts[1] });
         // Check Roles contract if this user is added
@@ -73,7 +73,7 @@ contract('IS4302 Project', function (accounts) {
  
      it("Test Remove User from Role", async () => {
         // An account create Remove User from Role request
-        await requestApprovalManagementInstance.removeUsersFromRolesRequest(1, 0, { from: accounts[2] });
+        await requestApprovalManagementInstance.removeUsersFromRolesRequest(accounts[2], 0, { from: accounts[2] });
         // Admin account approve request
         await requestApprovalManagementInstance.approveRequest(5, { from: accounts[1] });
         // Check Roles contract if this user is removed
@@ -82,7 +82,7 @@ contract('IS4302 Project', function (accounts) {
 
      it("Test Remove Role", async () => {
         // An account create Remove Role request
-        await requestApprovalManagementInstance.removeRoleRequest(0, 1, { from: accounts[2] });
+        await requestApprovalManagementInstance.removeRoleRequest(0, accounts[2], { from: accounts[2] });
         // Admin account approve request
         await requestApprovalManagementInstance.approveRequest(6, { from: accounts[1] });
         // Check Roles contract if this role has been removed

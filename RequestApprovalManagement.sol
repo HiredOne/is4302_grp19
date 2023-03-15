@@ -32,7 +32,7 @@ contract RequestApprovalManagement {
         string permissionName;
         uint256 roleID; 
         uint256 permissionID;
-        uint256 userID;
+        address userID;
     }
 
     User userContract;
@@ -91,36 +91,36 @@ contract RequestApprovalManagement {
     // Creating Requests
 
     function createNewRoleRequest(string memory roleName) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", roleName, "", 0,0,0);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", roleName, "", 0,0,address(0));
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    function removeRoleRequest(uint256 roleID, uint256 userID) public {
+    function removeRoleRequest(uint256 roleID, address userID) public {
         Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID,0,userID);
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function addDatasetToRolesRequest(string memory permissionName, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", permissionName, roleID,0,0);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", permissionName, roleID,0,address(0));
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function removeDatasetFromRolesRequest(uint256 permissionID, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, permissionID,0);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, permissionID,address(0));
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    function addUsersToRolesRequest(uint256 userID, uint256 roleID) public {
+    function addUsersToRolesRequest(address userID, uint256 roleID) public {
         Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    function removeUsersFromRolesRequest(uint256 userID, uint256 roleID) public {
+    function removeUsersFromRolesRequest(address userID, uint256 roleID) public {
         Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
@@ -147,7 +147,7 @@ contract RequestApprovalManagement {
         rolesContract.createRole(roleName);
     }
 
-    function removeRole(uint256 roleID, uint256 userID) public {
+    function removeRole(uint256 roleID, address userID) public {
         //  Remove role
         rolesContract.removeRoleUser(roleID, userID);
     }
@@ -168,14 +168,14 @@ contract RequestApprovalManagement {
         rolesContract.removeRolePermission(roleID, permissionID); 
     }
 
-    function addUsersToRoles(uint256 userID, uint256 roleID) public {
+    function addUsersToRoles(address userID, uint256 roleID) public {
         // Give user to role
         rolesContract.giveRoleUser(roleID, userID);
         // Give role to user
         userContract.giveUserRole(userID, roleID);
     }
 
-    function removeUsersFromRoles(uint256 userID, uint256 roleID) public {
+    function removeUsersFromRoles(address userID, uint256 roleID) public {
         // Remove user from role
         rolesContract.removeRoleUser(roleID, userID);
         // Remove role from user
