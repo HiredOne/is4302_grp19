@@ -2,6 +2,7 @@ pragma solidity ^0.5.0;
 import "https://github.com/willitscale/solidity-util/lib/Strings.sol";
 // import "QueueToken.sol"
 // import "RoleBasedAccessControlManagement.sol"
+// import "QueryQueueManagementSystem.sol"
 
 contract QueryDataSet {
    using Strings for string;
@@ -20,8 +21,9 @@ contract QueryDataSet {
       bool isPermanentChange;
    }
 
-   // QueueToken queueTokenContract;
-   // RoleBasedAccessControlManagement roleBasedAccessControlManagementContract;
+   // User userContract;
+   // Permission permissionContract;
+   // QueryQueueManagementSystem queryQueueManagementSystemContract;
    address _owner = msg.sender;
    uint256 currentErrorLogIdCount = 0;
    mapping(uint256 => errorLog) listOfErrorLogs;
@@ -38,8 +40,10 @@ contract QueryDataSet {
    constructor() public {
    }
 
-   // constructor(QueueToken queueTokenAddress) public {
-   //    // queueTokenContract = queueTokenAddress;
+   // constructor(User userAddress, Permission permissionAddress, QueryQueueManagementSystem queryQueueManagementSystemAddress) public {
+   //    // userContract = userAddress;
+   //    // permissionContract = permissionAddress;
+   //    // queryQueueManagementSystemContract = queryQueueManagementSystemAddress;
    // }
 
    function runQuery(string memory query, string memory datasetName, string memory data,uint256 numTokens) public returns (bool) {
@@ -54,7 +58,7 @@ contract QueryDataSet {
             queryCheckResult result = checkQuery(query);
             if (result.hasPassed) {
                // pass on to queue management system
-
+               // queryQueueManagementSystemAddress.queueQuery(query, datasetName, data, numTokens,result.isPermanentChange);
                emit queryPassedToQueue();
                //
             } else {
@@ -124,15 +128,16 @@ contract QueryDataSet {
    }
 
    function checkTokens(address user, uint256 numTokens) private returns (bool) {
-      // if (queueTokenContract.getBalance(user) > tokenPrice) {
+      // if (userContract.getBalance(user) > numTokens) {
       //    return true;
       // }
       // return false; 
-      return false;
+      return true;
    }
 
    function checkAccessRights(address user) private returns (bool) {
       //check if user has rights to dataset
+      // return permissionContract.checkAccessRights(user);
       return true;
    }
 
