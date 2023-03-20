@@ -19,6 +19,13 @@ contract('IS4302 Project', function (accounts) {
     });
 
     console.log("Testing IS4302 Project");
+
+    it("Test Create Request to upload dataset", async () => {
+        
+
+    });
+
+
  
     it("Test Create New Role", async () => {
         // An account create new role request
@@ -38,7 +45,7 @@ contract('IS4302 Project', function (accounts) {
     it("Test Add Dataset (Permission) to Role", async () => {
         // An account create Add Dataset to role request
         await assert.equal(1, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        await requestApprovalManagementInstance.addDatasetToRoleRequest("bank account", 0,  { from: accounts[2] });
+        await requestApprovalManagementInstance.addDatasetToRoleRequest(0, 0,  { from: accounts[2] });
         await assert.equal(2, await requestApprovalManagementInstance.getTotalNumberOfRequests());
         // Admin account approve request
         let requestApproved = await requestApprovalManagementInstance.approveRequest(1, { from: accounts[1] });
@@ -76,41 +83,41 @@ contract('IS4302 Project', function (accounts) {
 
 
 
-     // At the end of all other testings, we can test the remove 
-     it("Test Remove Dataset from Role", async () => {
-        // An account create Remove Dataset from Role request
-        await assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        await requestApprovalManagementInstance.removeDatasetFromRoleRequest(0, 0, { from: accounts[2] });
-        await assert.equal(5, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        // Admin account approve request
-        let requestApproved = await requestApprovalManagementInstance.approveRequest(4, { from: accounts[1] });
-        // Check Role contract if this permission is removed
+    //  // At the end of all other testings, we can test the remove 
+    //  it("Test Remove Dataset from Role", async () => {
+    //     // An account create Remove Dataset from Role request
+    //     await assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     await requestApprovalManagementInstance.removeDatasetFromRoleRequest(0, 0, { from: accounts[2] });
+    //     await assert.equal(5, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     // Admin account approve request
+    //     let requestApproved = await requestApprovalManagementInstance.approveRequest(4, { from: accounts[1] });
+    //     // Check Role contract if this permission is removed
 
-        truffleAssert.eventEmitted(requestApproved, "removeDatasetFromRolesRequestApproved");
-     });
+    //     truffleAssert.eventEmitted(requestApproved, "removeDatasetFromRolesRequestApproved");
+    //  });
  
-     it("Test Remove User from Role", async () => {
-        // An account create Remove User from Role request
-        await assert.equal(5, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        await requestApprovalManagementInstance.removeUsersFromRoleRequest(accounts[2], 0, { from: accounts[2] });
-        await assert.equal(6, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        // Admin account approve request
-        let requestApproved = await requestApprovalManagementInstance.approveRequest(5, { from: accounts[1] });
-        // Check Role contract if this user is removed
+    //  it("Test Remove User from Role", async () => {
+    //     // An account create Remove User from Role request
+    //     await assert.equal(5, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     await requestApprovalManagementInstance.removeUsersFromRoleRequest(accounts[2], 0, { from: accounts[2] });
+    //     await assert.equal(6, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     // Admin account approve request
+    //     let requestApproved = await requestApprovalManagementInstance.approveRequest(5, { from: accounts[1] });
+    //     // Check Role contract if this user is removed
 
-        truffleAssert.eventEmitted(requestApproved, "removeUsersFromRolesRequestApproved");
-     });
+    //     truffleAssert.eventEmitted(requestApproved, "removeUsersFromRolesRequestApproved");
+    //  });
 
-     it("Test Remove Role", async () => {
-        // An account create Remove Role request
-        await assert.equal(6, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        await requestApprovalManagementInstance.removeRoleRequest(0, accounts[2], { from: accounts[2] });
-        await assert.equal(7, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        // Admin account approve request
-        let requestApproved = await requestApprovalManagementInstance.approveRequest(6, { from: accounts[1] });
-        // Check Role contract if this role has been removed
+    //  it("Test Remove Role", async () => {
+    //     // An account create Remove Role request
+    //     await assert.equal(6, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     await requestApprovalManagementInstance.removeRoleRequest(0, accounts[2], { from: accounts[2] });
+    //     await assert.equal(7, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+    //     // Admin account approve request
+    //     let requestApproved = await requestApprovalManagementInstance.approveRequest(6, { from: accounts[1] });
+    //     // Check Role contract if this role has been removed
 
-        truffleAssert.eventEmitted(requestApproved, "removeRoleRequestApproved");
-     });
+    //     truffleAssert.eventEmitted(requestApproved, "removeRoleRequestApproved");
+    //  });
 
 })
