@@ -48,7 +48,7 @@
         "id": 59,
         "nodeType": "ImportDirective",
         "scope": 83,
-        "sourceUnit": 870,
+        "sourceUnit": 1051,
         "src": "25:20:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -76,7 +76,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_User_$869",
+              "typeIdentifier": "t_contract$_User_$1050",
               "typeString": "contract User"
             },
             "typeName": {
@@ -84,10 +84,10 @@
               "id": 60,
               "name": "User",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 869,
+              "referencedDeclaration": 1050,
               "src": "73:4:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_User_$869",
+                "typeIdentifier": "t_contract$_User_$1050",
                 "typeString": "contract User"
               }
             },
@@ -244,7 +244,7 @@
                       "referencedDeclaration": 61,
                       "src": "276:12:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$869",
+                        "typeIdentifier": "t_contract$_User_$1050",
                         "typeString": "contract User"
                       }
                     },
@@ -259,13 +259,13 @@
                       "referencedDeclaration": 73,
                       "src": "291:5:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$869",
+                        "typeIdentifier": "t_contract$_User_$1050",
                         "typeString": "contract User"
                       }
                     },
                     "src": "276:20:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$869",
+                      "typeIdentifier": "t_contract$_User_$1050",
                       "typeString": "contract User"
                     }
                   },
@@ -296,7 +296,7 @@
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_User_$869",
+                    "typeIdentifier": "t_contract$_User_$1050",
                     "typeString": "contract User"
                   },
                   "typeName": {
@@ -304,10 +304,10 @@
                     "id": 72,
                     "name": "User",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 869,
+                    "referencedDeclaration": 1050,
                     "src": "247:4:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$869",
+                      "typeIdentifier": "t_contract$_User_$1050",
                       "typeString": "contract User"
                     }
                   },
@@ -361,7 +361,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 870,
+          "SourceUnit": 1051,
           "absolutePath": "project:/contracts/User.sol",
           "file": "./User.sol",
           "scope": 83,
@@ -408,7 +408,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "User",
-                  "referencedDeclaration": 869,
+                  "referencedDeclaration": 1050,
                   "type": "contract User"
                 },
                 "id": 60,
@@ -582,7 +582,7 @@
                         "attributes": {
                           "contractScope": null,
                           "name": "User",
-                          "referencedDeclaration": 869,
+                          "referencedDeclaration": 1050,
                           "type": "contract User"
                         },
                         "id": 72,
@@ -691,12 +691,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x782BDFbB83005B15352021B209c9f8388445aE0e",
-      "transactionHash": "0x9042b8ab6926837d2d338867f845aa6b6c083af2a985244fc6b9805eec80af3f"
+      "address": "0x845A62178838777F0f987fAa2DD334BE3da9b9A7",
+      "transactionHash": "0xb973424420c4292099b9bc8e2a16e489b92147281ece8a783424b277b1bbb0d2"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-03-17T15:15:59.455Z",
+  "updatedAt": "2023-03-21T04:20:31.573Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

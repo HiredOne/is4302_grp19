@@ -30,14 +30,14 @@
     "absolutePath": "project:/contracts/Role.sol",
     "exportedSymbols": {
       "Role": [
-        802
+        983
       ]
     },
-    "id": 803,
+    "id": 984,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 746,
+        "id": 927,
         "literals": [
           "solidity",
           "^",
@@ -50,10 +50,10 @@
       {
         "absolutePath": "project:/contracts/User.sol",
         "file": "./User.sol",
-        "id": 747,
+        "id": 928,
         "nodeType": "ImportDirective",
-        "scope": 803,
-        "sourceUnit": 870,
+        "scope": 984,
+        "sourceUnit": 1051,
         "src": "25:20:3",
         "symbolAliases": [],
         "unitAlias": ""
@@ -61,9 +61,9 @@
       {
         "absolutePath": "project:/contracts/Permission.sol",
         "file": "./Permission.sol",
-        "id": 748,
+        "id": 929,
         "nodeType": "ImportDirective",
-        "scope": 803,
+        "scope": 984,
         "sourceUnit": 83,
         "src": "46:26:3",
         "symbolAliases": [],
@@ -75,35 +75,35 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 802,
+        "id": 983,
         "linearizedBaseContracts": [
-          802
+          983
         ],
         "name": "Role",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 750,
+            "id": 931,
             "name": "userContract",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "94:17:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_User_$869",
+              "typeIdentifier": "t_contract$_User_$1050",
               "typeString": "contract User"
             },
             "typeName": {
               "contractScope": null,
-              "id": 749,
+              "id": 930,
               "name": "User",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 869,
+              "referencedDeclaration": 1050,
               "src": "94:4:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_User_$869",
+                "typeIdentifier": "t_contract$_User_$1050",
                 "typeString": "contract User"
               }
             },
@@ -112,10 +112,10 @@
           },
           {
             "constant": false,
-            "id": 752,
+            "id": 933,
             "name": "permContract",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "117:23:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -125,7 +125,7 @@
             },
             "typeName": {
               "contractScope": null,
-              "id": 751,
+              "id": 932,
               "name": "Permission",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 82,
@@ -140,10 +140,10 @@
           },
           {
             "constant": false,
-            "id": 754,
+            "id": 935,
             "name": "numRoles",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "146:16:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -152,7 +152,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 753,
+              "id": 934,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "146:7:3",
@@ -166,21 +166,21 @@
           },
           {
             "constant": false,
-            "id": 758,
+            "id": 939,
             "name": "rolesCreated",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "168:37:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_role_$785_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_role_$966_storage_$",
               "typeString": "mapping(uint256 => struct Role.role)"
             },
             "typeName": {
-              "id": 757,
+              "id": 938,
               "keyType": {
-                "id": 755,
+                "id": 936,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "176:7:3",
@@ -192,18 +192,18 @@
               "nodeType": "Mapping",
               "src": "168:24:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_role_$785_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_role_$966_storage_$",
                 "typeString": "mapping(uint256 => struct Role.role)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 756,
+                "id": 937,
                 "name": "role",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 785,
+                "referencedDeclaration": 966,
                 "src": "187:4:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_role_$785_storage_ptr",
+                  "typeIdentifier": "t_struct$_role_$966_storage_ptr",
                   "typeString": "struct Role.role"
                 }
               }
@@ -213,10 +213,10 @@
           },
           {
             "constant": false,
-            "id": 764,
+            "id": 945,
             "name": "rolesGivenPermission",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "211:66:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -225,9 +225,9 @@
               "typeString": "mapping(uint256 => mapping(uint256 => uint8))"
             },
             "typeName": {
-              "id": 763,
+              "id": 944,
               "keyType": {
-                "id": 759,
+                "id": 940,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "219:7:3",
@@ -243,9 +243,9 @@
                 "typeString": "mapping(uint256 => mapping(uint256 => uint8))"
               },
               "valueType": {
-                "id": 762,
+                "id": 943,
                 "keyType": {
-                  "id": 760,
+                  "id": 941,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "238:7:3",
@@ -261,7 +261,7 @@
                   "typeString": "mapping(uint256 => uint8)"
                 },
                 "valueType": {
-                  "id": 761,
+                  "id": 942,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "249:5:3",
@@ -277,10 +277,10 @@
           },
           {
             "constant": false,
-            "id": 770,
+            "id": 951,
             "name": "rolesGrantedToUser",
             "nodeType": "VariableDeclaration",
-            "scope": 802,
+            "scope": 983,
             "src": "331:64:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -289,9 +289,9 @@
               "typeString": "mapping(address => mapping(uint256 => uint8))"
             },
             "typeName": {
-              "id": 769,
+              "id": 950,
               "keyType": {
-                "id": 765,
+                "id": 946,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "339:7:3",
@@ -307,9 +307,9 @@
                 "typeString": "mapping(address => mapping(uint256 => uint8))"
               },
               "valueType": {
-                "id": 768,
+                "id": 949,
                 "keyType": {
-                  "id": 766,
+                  "id": 947,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "358:7:3",
@@ -325,7 +325,7 @@
                   "typeString": "mapping(uint256 => uint8)"
                 },
                 "valueType": {
-                  "id": 767,
+                  "id": 948,
                   "name": "uint8",
                   "nodeType": "ElementaryTypeName",
                   "src": "369:5:3",
@@ -341,14 +341,14 @@
           },
           {
             "canonicalName": "Role.role",
-            "id": 785,
+            "id": 966,
             "members": [
               {
                 "constant": false,
-                "id": 772,
+                "id": 953,
                 "name": "name",
                 "nodeType": "VariableDeclaration",
-                "scope": 785,
+                "scope": 966,
                 "src": "460:11:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -357,7 +357,7 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 771,
+                  "id": 952,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "460:6:3",
@@ -371,10 +371,10 @@
               },
               {
                 "constant": false,
-                "id": 776,
+                "id": 957,
                 "name": "assignedPermissions",
                 "nodeType": "VariableDeclaration",
-                "scope": 785,
+                "scope": 966,
                 "src": "481:47:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -383,9 +383,9 @@
                   "typeString": "mapping(uint256 => uint256)"
                 },
                 "typeName": {
-                  "id": 775,
+                  "id": 956,
                   "keyType": {
-                    "id": 773,
+                    "id": 954,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "489:7:3",
@@ -401,7 +401,7 @@
                     "typeString": "mapping(uint256 => uint256)"
                   },
                   "valueType": {
-                    "id": 774,
+                    "id": 955,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "500:7:3",
@@ -416,10 +416,10 @@
               },
               {
                 "constant": false,
-                "id": 780,
+                "id": 961,
                 "name": "assignedUsers",
                 "nodeType": "VariableDeclaration",
-                "scope": 785,
+                "scope": 966,
                 "src": "538:41:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -428,9 +428,9 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "typeName": {
-                  "id": 779,
+                  "id": 960,
                   "keyType": {
-                    "id": 777,
+                    "id": 958,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "546:7:3",
@@ -446,7 +446,7 @@
                     "typeString": "mapping(address => uint256)"
                   },
                   "valueType": {
-                    "id": 778,
+                    "id": 959,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "557:7:3",
@@ -461,10 +461,10 @@
               },
               {
                 "constant": false,
-                "id": 784,
+                "id": 965,
                 "name": "inheritedRoles",
                 "nodeType": "VariableDeclaration",
-                "scope": 785,
+                "scope": 966,
                 "src": "589:42:3",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -473,9 +473,9 @@
                   "typeString": "mapping(uint256 => uint256)"
                 },
                 "typeName": {
-                  "id": 783,
+                  "id": 964,
                   "keyType": {
-                    "id": 781,
+                    "id": 962,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "597:7:3",
@@ -491,7 +491,7 @@
                     "typeString": "mapping(uint256 => uint256)"
                   },
                   "valueType": {
-                    "id": 782,
+                    "id": 963,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "608:7:3",
@@ -507,34 +507,34 @@
             ],
             "name": "role",
             "nodeType": "StructDefinition",
-            "scope": 802,
+            "scope": 983,
             "src": "438:200:3",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 800,
+              "id": 981,
               "nodeType": "Block",
               "src": "693:67:3",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 794,
+                    "id": 975,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 792,
+                      "id": 973,
                       "name": "userContract",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 750,
+                      "referencedDeclaration": 931,
                       "src": "703:12:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$869",
+                        "typeIdentifier": "t_contract$_User_$1050",
                         "typeString": "contract User"
                       }
                     },
@@ -542,42 +542,42 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 793,
+                      "id": 974,
                       "name": "users",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 787,
+                      "referencedDeclaration": 968,
                       "src": "718:5:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$869",
+                        "typeIdentifier": "t_contract$_User_$1050",
                         "typeString": "contract User"
                       }
                     },
                     "src": "703:20:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$869",
+                      "typeIdentifier": "t_contract$_User_$1050",
                       "typeString": "contract User"
                     }
                   },
-                  "id": 795,
+                  "id": 976,
                   "nodeType": "ExpressionStatement",
                   "src": "703:20:3"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 798,
+                    "id": 979,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 796,
+                      "id": 977,
                       "name": "permContract",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 752,
+                      "referencedDeclaration": 933,
                       "src": "733:12:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_contract$_Permission_$82",
@@ -588,11 +588,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 797,
+                      "id": 978,
                       "name": "perms",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 789,
+                      "referencedDeclaration": 970,
                       "src": "748:5:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_contract$_Permission_$82",
@@ -605,45 +605,45 @@
                       "typeString": "contract Permission"
                     }
                   },
-                  "id": 799,
+                  "id": 980,
                   "nodeType": "ExpressionStatement",
                   "src": "733:20:3"
                 }
               ]
             },
             "documentation": null,
-            "id": 801,
+            "id": 982,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 790,
+              "id": 971,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 787,
+                  "id": 968,
                   "name": "users",
                   "nodeType": "VariableDeclaration",
-                  "scope": 801,
+                  "scope": 982,
                   "src": "656:10:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_User_$869",
+                    "typeIdentifier": "t_contract$_User_$1050",
                     "typeString": "contract User"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 786,
+                    "id": 967,
                     "name": "User",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 869,
+                    "referencedDeclaration": 1050,
                     "src": "656:4:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$869",
+                      "typeIdentifier": "t_contract$_User_$1050",
                       "typeString": "contract User"
                     }
                   },
@@ -652,10 +652,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 789,
+                  "id": 970,
                   "name": "perms",
                   "nodeType": "VariableDeclaration",
-                  "scope": 801,
+                  "scope": 982,
                   "src": "668:16:3",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -665,7 +665,7 @@
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 788,
+                    "id": 969,
                     "name": "Permission",
                     "nodeType": "UserDefinedTypeName",
                     "referencedDeclaration": 82,
@@ -682,19 +682,19 @@
               "src": "655:30:3"
             },
             "returnParameters": {
-              "id": 791,
+              "id": 972,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "693:0:3"
             },
-            "scope": 802,
+            "scope": 983,
             "src": "644:116:3",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 803,
+        "scope": 984,
         "src": "74:4724:3"
       }
     ],
@@ -705,7 +705,7 @@
       "absolutePath": "project:/contracts/Role.sol",
       "exportedSymbols": {
         "Role": [
-          802
+          983
         ]
       }
     },
@@ -719,22 +719,22 @@
             ".17"
           ]
         },
-        "id": 746,
+        "id": 927,
         "name": "PragmaDirective",
         "src": "0:24:3"
       },
       {
         "attributes": {
-          "SourceUnit": 870,
+          "SourceUnit": 1051,
           "absolutePath": "project:/contracts/User.sol",
           "file": "./User.sol",
-          "scope": 803,
+          "scope": 984,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 747,
+        "id": 928,
         "name": "ImportDirective",
         "src": "25:20:3"
       },
@@ -743,13 +743,13 @@
           "SourceUnit": 83,
           "absolutePath": "project:/contracts/Permission.sol",
           "file": "./Permission.sol",
-          "scope": 803,
+          "scope": 984,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 748,
+        "id": 929,
         "name": "ImportDirective",
         "src": "46:26:3"
       },
@@ -765,17 +765,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            802
+            983
           ],
           "name": "Role",
-          "scope": 803
+          "scope": 984
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "userContract",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract User",
@@ -787,15 +787,15 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "User",
-                  "referencedDeclaration": 869,
+                  "referencedDeclaration": 1050,
                   "type": "contract User"
                 },
-                "id": 749,
+                "id": 930,
                 "name": "UserDefinedTypeName",
                 "src": "94:4:3"
               }
             ],
-            "id": 750,
+            "id": 931,
             "name": "VariableDeclaration",
             "src": "94:17:3"
           },
@@ -803,7 +803,7 @@
             "attributes": {
               "constant": false,
               "name": "permContract",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract Permission",
@@ -818,12 +818,12 @@
                   "referencedDeclaration": 82,
                   "type": "contract Permission"
                 },
-                "id": 751,
+                "id": 932,
                 "name": "UserDefinedTypeName",
                 "src": "117:10:3"
               }
             ],
-            "id": 752,
+            "id": 933,
             "name": "VariableDeclaration",
             "src": "117:23:3"
           },
@@ -831,7 +831,7 @@
             "attributes": {
               "constant": false,
               "name": "numRoles",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -844,12 +844,12 @@
                   "name": "uint256",
                   "type": "uint256"
                 },
-                "id": 753,
+                "id": 934,
                 "name": "ElementaryTypeName",
                 "src": "146:7:3"
               }
             ],
-            "id": 754,
+            "id": 935,
             "name": "VariableDeclaration",
             "src": "146:16:3"
           },
@@ -857,7 +857,7 @@
             "attributes": {
               "constant": false,
               "name": "rolesCreated",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(uint256 => struct Role.role)",
@@ -875,7 +875,7 @@
                       "name": "uint256",
                       "type": "uint256"
                     },
-                    "id": 755,
+                    "id": 936,
                     "name": "ElementaryTypeName",
                     "src": "176:7:3"
                   },
@@ -883,20 +883,20 @@
                     "attributes": {
                       "contractScope": null,
                       "name": "role",
-                      "referencedDeclaration": 785,
+                      "referencedDeclaration": 966,
                       "type": "struct Role.role"
                     },
-                    "id": 756,
+                    "id": 937,
                     "name": "UserDefinedTypeName",
                     "src": "187:4:3"
                   }
                 ],
-                "id": 757,
+                "id": 938,
                 "name": "Mapping",
                 "src": "168:24:3"
               }
             ],
-            "id": 758,
+            "id": 939,
             "name": "VariableDeclaration",
             "src": "168:37:3"
           },
@@ -904,7 +904,7 @@
             "attributes": {
               "constant": false,
               "name": "rolesGivenPermission",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(uint256 => mapping(uint256 => uint8))",
@@ -922,7 +922,7 @@
                       "name": "uint256",
                       "type": "uint256"
                     },
-                    "id": 759,
+                    "id": 940,
                     "name": "ElementaryTypeName",
                     "src": "219:7:3"
                   },
@@ -936,7 +936,7 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 760,
+                        "id": 941,
                         "name": "ElementaryTypeName",
                         "src": "238:7:3"
                       },
@@ -945,22 +945,22 @@
                           "name": "uint8",
                           "type": "uint8"
                         },
-                        "id": 761,
+                        "id": 942,
                         "name": "ElementaryTypeName",
                         "src": "249:5:3"
                       }
                     ],
-                    "id": 762,
+                    "id": 943,
                     "name": "Mapping",
                     "src": "230:25:3"
                   }
                 ],
-                "id": 763,
+                "id": 944,
                 "name": "Mapping",
                 "src": "211:45:3"
               }
             ],
-            "id": 764,
+            "id": 945,
             "name": "VariableDeclaration",
             "src": "211:66:3"
           },
@@ -968,7 +968,7 @@
             "attributes": {
               "constant": false,
               "name": "rolesGrantedToUser",
-              "scope": 802,
+              "scope": 983,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(address => mapping(uint256 => uint8))",
@@ -986,7 +986,7 @@
                       "name": "address",
                       "type": "address"
                     },
-                    "id": 765,
+                    "id": 946,
                     "name": "ElementaryTypeName",
                     "src": "339:7:3"
                   },
@@ -1000,7 +1000,7 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 766,
+                        "id": 947,
                         "name": "ElementaryTypeName",
                         "src": "358:7:3"
                       },
@@ -1009,22 +1009,22 @@
                           "name": "uint8",
                           "type": "uint8"
                         },
-                        "id": 767,
+                        "id": 948,
                         "name": "ElementaryTypeName",
                         "src": "369:5:3"
                       }
                     ],
-                    "id": 768,
+                    "id": 949,
                     "name": "Mapping",
                     "src": "350:25:3"
                   }
                 ],
-                "id": 769,
+                "id": 950,
                 "name": "Mapping",
                 "src": "331:45:3"
               }
             ],
-            "id": 770,
+            "id": 951,
             "name": "VariableDeclaration",
             "src": "331:64:3"
           },
@@ -1032,7 +1032,7 @@
             "attributes": {
               "canonicalName": "Role.role",
               "name": "role",
-              "scope": 802,
+              "scope": 983,
               "visibility": "public"
             },
             "children": [
@@ -1040,7 +1040,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "name",
-                  "scope": 785,
+                  "scope": 966,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "string",
@@ -1053,12 +1053,12 @@
                       "name": "string",
                       "type": "string"
                     },
-                    "id": 771,
+                    "id": 952,
                     "name": "ElementaryTypeName",
                     "src": "460:6:3"
                   }
                 ],
-                "id": 772,
+                "id": 953,
                 "name": "VariableDeclaration",
                 "src": "460:11:3"
               },
@@ -1066,7 +1066,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "assignedPermissions",
-                  "scope": 785,
+                  "scope": 966,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "mapping(uint256 => uint256)",
@@ -1084,7 +1084,7 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 773,
+                        "id": 954,
                         "name": "ElementaryTypeName",
                         "src": "489:7:3"
                       },
@@ -1093,17 +1093,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 774,
+                        "id": 955,
                         "name": "ElementaryTypeName",
                         "src": "500:7:3"
                       }
                     ],
-                    "id": 775,
+                    "id": 956,
                     "name": "Mapping",
                     "src": "481:27:3"
                   }
                 ],
-                "id": 776,
+                "id": 957,
                 "name": "VariableDeclaration",
                 "src": "481:47:3"
               },
@@ -1111,7 +1111,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "assignedUsers",
-                  "scope": 785,
+                  "scope": 966,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "mapping(address => uint256)",
@@ -1129,7 +1129,7 @@
                           "name": "address",
                           "type": "address"
                         },
-                        "id": 777,
+                        "id": 958,
                         "name": "ElementaryTypeName",
                         "src": "546:7:3"
                       },
@@ -1138,17 +1138,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 778,
+                        "id": 959,
                         "name": "ElementaryTypeName",
                         "src": "557:7:3"
                       }
                     ],
-                    "id": 779,
+                    "id": 960,
                     "name": "Mapping",
                     "src": "538:27:3"
                   }
                 ],
-                "id": 780,
+                "id": 961,
                 "name": "VariableDeclaration",
                 "src": "538:41:3"
               },
@@ -1156,7 +1156,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "inheritedRoles",
-                  "scope": 785,
+                  "scope": 966,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "mapping(uint256 => uint256)",
@@ -1174,7 +1174,7 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 781,
+                        "id": 962,
                         "name": "ElementaryTypeName",
                         "src": "597:7:3"
                       },
@@ -1183,22 +1183,22 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 782,
+                        "id": 963,
                         "name": "ElementaryTypeName",
                         "src": "608:7:3"
                       }
                     ],
-                    "id": 783,
+                    "id": 964,
                     "name": "Mapping",
                     "src": "589:27:3"
                   }
                 ],
-                "id": 784,
+                "id": 965,
                 "name": "VariableDeclaration",
                 "src": "589:42:3"
               }
             ],
-            "id": 785,
+            "id": 966,
             "name": "StructDefinition",
             "src": "438:200:3"
           },
@@ -1212,7 +1212,7 @@
                 null
               ],
               "name": "",
-              "scope": 802,
+              "scope": 983,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -1224,7 +1224,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "users",
-                      "scope": 801,
+                      "scope": 982,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract User",
@@ -1236,15 +1236,15 @@
                         "attributes": {
                           "contractScope": null,
                           "name": "User",
-                          "referencedDeclaration": 869,
+                          "referencedDeclaration": 1050,
                           "type": "contract User"
                         },
-                        "id": 786,
+                        "id": 967,
                         "name": "UserDefinedTypeName",
                         "src": "656:4:3"
                       }
                     ],
-                    "id": 787,
+                    "id": 968,
                     "name": "VariableDeclaration",
                     "src": "656:10:3"
                   },
@@ -1252,7 +1252,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "perms",
-                      "scope": 801,
+                      "scope": 982,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract Permission",
@@ -1267,17 +1267,17 @@
                           "referencedDeclaration": 82,
                           "type": "contract Permission"
                         },
-                        "id": 788,
+                        "id": 969,
                         "name": "UserDefinedTypeName",
                         "src": "668:10:3"
                       }
                     ],
-                    "id": 789,
+                    "id": 970,
                     "name": "VariableDeclaration",
                     "src": "668:16:3"
                   }
                 ],
-                "id": 790,
+                "id": 971,
                 "name": "ParameterList",
                 "src": "655:30:3"
               },
@@ -1288,7 +1288,7 @@
                   ]
                 },
                 "children": [],
-                "id": 791,
+                "id": 972,
                 "name": "ParameterList",
                 "src": "693:0:3"
               },
@@ -1313,11 +1313,11 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 750,
+                              "referencedDeclaration": 931,
                               "type": "contract User",
                               "value": "userContract"
                             },
-                            "id": 792,
+                            "id": 973,
                             "name": "Identifier",
                             "src": "703:12:3"
                           },
@@ -1327,21 +1327,21 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 787,
+                              "referencedDeclaration": 968,
                               "type": "contract User",
                               "value": "users"
                             },
-                            "id": 793,
+                            "id": 974,
                             "name": "Identifier",
                             "src": "718:5:3"
                           }
                         ],
-                        "id": 794,
+                        "id": 975,
                         "name": "Assignment",
                         "src": "703:20:3"
                       }
                     ],
-                    "id": 795,
+                    "id": 976,
                     "name": "ExpressionStatement",
                     "src": "703:20:3"
                   },
@@ -1364,11 +1364,11 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 752,
+                              "referencedDeclaration": 933,
                               "type": "contract Permission",
                               "value": "permContract"
                             },
-                            "id": 796,
+                            "id": 977,
                             "name": "Identifier",
                             "src": "733:12:3"
                           },
@@ -1378,41 +1378,41 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 789,
+                              "referencedDeclaration": 970,
                               "type": "contract Permission",
                               "value": "perms"
                             },
-                            "id": 797,
+                            "id": 978,
                             "name": "Identifier",
                             "src": "748:5:3"
                           }
                         ],
-                        "id": 798,
+                        "id": 979,
                         "name": "Assignment",
                         "src": "733:20:3"
                       }
                     ],
-                    "id": 799,
+                    "id": 980,
                     "name": "ExpressionStatement",
                     "src": "733:20:3"
                   }
                 ],
-                "id": 800,
+                "id": 981,
                 "name": "Block",
                 "src": "693:67:3"
               }
             ],
-            "id": 801,
+            "id": 982,
             "name": "FunctionDefinition",
             "src": "644:116:3"
           }
         ],
-        "id": 802,
+        "id": 983,
         "name": "ContractDefinition",
         "src": "74:4724:3"
       }
     ],
-    "id": 803,
+    "id": 984,
     "name": "SourceUnit",
     "src": "0:4798:3"
   },
@@ -1424,12 +1424,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x8C6d8b430C1bfe47393e1Bd4375da47491190cA3",
-      "transactionHash": "0x60ae5d58e0c548a89aef12b98520444039379c74af88318f050e7bd2d015f59f"
+      "address": "0xe78078e279f14d2412Fe533EE21BA97C05dCc49d",
+      "transactionHash": "0xd15813ee6d16c604b521e3fd9a8e17564423ab19bc390a4921ee3e9f49408b29"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-03-17T15:15:59.459Z",
+  "updatedAt": "2023-03-21T04:20:31.576Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
