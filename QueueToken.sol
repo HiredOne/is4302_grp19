@@ -35,8 +35,8 @@ contract QueueToken {
         return credit; 
     }
 
-    function transferCredit(address recipient, uint256 amt) public {
+    function transferCredit(address sender, address reciepient, uint256 amt) public {
         // Transfers from tx.origin to receipient
-        erc20Contract.transfer(recipient, amt);
+        erc20Contract.transferFrom(sender, reciepient, amt);
     }
 }
