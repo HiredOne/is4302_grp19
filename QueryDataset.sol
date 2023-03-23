@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 import "https://github.com/willitscale/solidity-util/lib/Strings.sol";
-// import "QueueToken.sol"
-// import "RoleBasedAccessControlManagement.sol"
-// import "QueryQueueManagementSystem.sol"
+import "./QueueSystem.sol"
+import "./Permission.sol"
+import "./User.sol"
 
 contract QueryDataSet {
    using Strings for string;
@@ -21,11 +21,12 @@ contract QueryDataSet {
       bool isPermanentChange;
    }
 
-   // User userContract;
-   // Permission permissionContract;
-   // QueryQueueManagementSystem queryQueueManagementSystemContract;
+   User userContract;
+   Permission permissionContract;
+   QueueSystem queueSystemContract;
    address _owner = msg.sender;
    uint256 currentErrorLogIdCount = 0;
+   uint256 currentIdCount = 0;
    mapping(uint256 => errorLog) listOfErrorLogs;
    
    event check(string str);
@@ -40,13 +41,14 @@ contract QueryDataSet {
    constructor() public {
    }
 
-   // constructor(User userAddress, Permission permissionAddress, QueryQueueManagementSystem queryQueueManagementSystemAddress) public {
-   //    // userContract = userAddress;
-   //    // permissionContract = permissionAddress;
-   //    // queryQueueManagementSystemContract = queryQueueManagementSystemAddress;
-   // }
+   constructor(User userAddress, Permission permissionAddress, QueueSystem queueSystemAddress) public {
+      userContract = userAddress;
+      permissionContract = permissionAddress;
+      queueSystemContract = queueSystemAddress;
+   }
 
-   function runQuery(string memory query, string memory datasetName, string memory data,uint256 numTokens) public returns (bool) {
+   // function runQuery(string memory query, string memory datasetName, string memory data, uint256 numTokens) public returns (bool) {
+   function runQuery(uint256 pointer, string memory query, string memory parent, uint256 numTokens) public returns (bool) {
       address reqSender = msg.sender;
 
 
@@ -58,7 +60,9 @@ contract QueryDataSet {
             queryCheckResult result = checkQuery(query);
             if (result.hasPassed) {
                // pass on to queue management system
-               // queryQueueManagementSystemAddress.queueQuery(query, datasetName, data, numTokens,result.isPermanentChange);
+               // queueSystem.createRequestEnqueue(query, datasetName, data, numTokens,result.isPermanentChange);
+               queueSystem.createRequestEnqueue(currentIdCount, pointer, query, parent, numTokens,result.isPermanentChange);
+               currentIdCount += 1;
                emit queryPassedToQueue();
                //
             } else {
@@ -128,11 +132,8 @@ contract QueryDataSet {
    }
 
    function checkTokens(address user, uint256 numTokens) private returns (bool) {
-      // if (userContract.getBalance(user) > numTokens) {
-      //    return true;
-      // }
-      // return false; 
-      return true;
+      //shouldnt there be a method for my contract to call instead of me trying to access the mapping directly like this?
+      return userContract.usersCreated[user].tokenCount >= numTokens;
    }
 
    function checkAccessRights(address user) private returns (bool) {
