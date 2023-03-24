@@ -1,8 +1,8 @@
 pragma solidity ^0.5.0;
 import "https://github.com/willitscale/solidity-util/lib/Strings.sol";
-import "./QueueSystem.sol"
-import "./Permission.sol"
-import "./User.sol"
+import "./QueueSystem.sol";
+import "./Permission.sol";
+import "./User.sol";
 
 contract QueryDataSet {
    using Strings for string;
