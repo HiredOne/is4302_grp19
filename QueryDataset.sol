@@ -26,7 +26,6 @@ contract QueryDataSet {
    QueueSystem queueSystemContract;
    address _owner = msg.sender;
    uint256 currentErrorLogIdCount = 0;
-   uint256 currentIdCount = 0;
    mapping(uint256 => errorLog) listOfErrorLogs;
    
    event check(string str);
@@ -48,9 +47,8 @@ contract QueryDataSet {
    }
 
    // function runQuery(string memory query, string memory datasetName, string memory data, uint256 numTokens) public returns (bool) {
-   function runQuery(uint256 pointer, string memory query, string memory parent, uint256 numTokens) public returns (bool) {
+   function runQuery(string memory pointer, string memory query, uint256 new_id, string memory parent, uint256 numTokens) public returns (bool) {
       address reqSender = msg.sender;
-
 
       //check user has access to dataset
       if (checkAccessRights(reqSender)) {
@@ -60,9 +58,7 @@ contract QueryDataSet {
             queryCheckResult result = checkQuery(query);
             if (result.hasPassed) {
                // pass on to queue management system
-               // queueSystem.createRequestEnqueue(query, datasetName, data, numTokens,result.isPermanentChange);
-               queueSystem.createRequestEnqueue(currentIdCount, pointer, query, parent, numTokens,result.isPermanentChange);
-               currentIdCount += 1;
+               queueSystem.createRequestEnqueue(new_id, pointer, query, parent, numTokens, reqSender, result.isPermanentChange);
                emit queryPassedToQueue();
                //
             } else {
