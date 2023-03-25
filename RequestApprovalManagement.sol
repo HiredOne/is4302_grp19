@@ -55,8 +55,8 @@ contract RequestApprovalManagement {
     event removeDatasetFromRolesRequestApproved(uint256 permissionID, uint256 roleID);
     event addUsersToRolesRequestApproved(address userID, uint256 roleID);
     event removeUsersFromRolesRequestApproved(address userID, uint256 roleID);
-    event uploadDatasetToNewRoleRequestApproved(string datasetIdentifier, string roleName, address requestor);
-    event uploadDatasetToExistingRoleRequestApproved(string datasetIdentifier, uint256 roleID, address requestor);
+    event uploadDatasetToNewRoleRequestApproved(string datasetIdentifier, string roleName, string pointer, address requestor);
+    event uploadDatasetToExistingRoleRequestApproved(string datasetIdentifier, uint256 roleID, string pointer, address requestor);
 
     event rejectRequestEvent(uint256 requestID, string adminAdditionalRemarks);
 
@@ -236,18 +236,54 @@ contract RequestApprovalManagement {
 
     function uploadDatasetToNewRole(string memory datasetIdentifier, string memory roleName, address requestor) public {
      
-        // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier, 0, roleName,requestor);
+        //This pointer is a simulation --> This by right links to external DB
+        //  We are now simulating it by generating a random string of length 10
+        string memory pointer = randomString(10);
 
-        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, requestor);
+        // Upload dataset
+        datasetuploaderContract.uploadDataset(datasetIdentifier, 0, roleName, pointer,requestor);
+
+        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, pointer, requestor);
     }
 
     function uploadDatasetToExistingRole(string memory datasetIdentifier, uint256 roleID, address requestor) public {
+        
+        //This pointer is a simulation --> This by right links to external DB
+        //  We are now simulating it by generating a random string of length 10
+        string memory pointer = randomString(10);
 
         // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier, roleID, "",requestor); 
+        datasetuploaderContract.uploadDataset(datasetIdentifier, roleID, "", pointer, requestor); 
 
-        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, requestor);
+        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, pointer, requestor);
+    }
+
+
+
+
+    // Random String Generator
+    string public letters = "abcdefghijklmnopqrstuvwxyz";
+    // I needed to add this to the random function to generate a different random number
+    uint counter =1;
+
+    // size is length of word
+    function randomString(uint size) public returns(string memory){
+        bytes memory randomWord=new bytes(size);
+        // since we have 26 letters
+        bytes memory chars = new bytes(26);
+        chars="abcdefghijklmnopqrstuvwxyz";
+        for (uint i=0;i<size;i++){
+            uint randomNumber=random(26);
+            // Index access for string is not possible
+            randomWord[i]=chars[randomNumber];
+        }
+        return string(randomWord);
+    }
+
+    function random(uint number) public returns(uint){
+        counter++;
+        return uint(keccak256(abi.encodePacked(block.timestamp,block.difficulty,  
+        msg.sender,counter))) % number;
     }
 
 
