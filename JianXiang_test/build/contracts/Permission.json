@@ -14,25 +14,25 @@
       "type": "constructor"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract User\",\"name\":\"users\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Permission.sol\":\"Permission\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Permission.sol\":{\"keccak256\":\"0x97471aeea75169e173fad5610650b29f81e7ab9dd41402b64c6b5eeb8fcb0b64\",\"urls\":[\"bzz-raw://3a0851837278860d5521d48b9c0291a2447468d55afc97f0d083e1d59dbb0c50\",\"dweb:/ipfs/QmUNZNXL1TC8RYiUr5PyUb4TwKZJMTvckpU9qeCTyThURL\"]},\"project:/contracts/User.sol\":{\"keccak256\":\"0x11f26767d4669684d855117d2db10bb5d93526a0678da3b22fe46c603ff7c1cb\",\"urls\":[\"bzz-raw://fcbedd2f8493285fc6154e720d10b61d083e9747f17f691e559e2f98ce4107fe\",\"dweb:/ipfs/QmU87H6uqqJ42a7KE8NqXs5aaXCitBKWozGTQ85gwerCqz\"]}},\"version\":1}",
-  "bytecode": "0x60806040526000600155348015601457600080fd5b5060405160d138038060d183398181016040526020811015603457600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050603e8060936000396000f3fe6080604052600080fdfea265627a7a72315820d16ffac1bdaf389ede78d5c1f937a7cc2722a9087a9f787feab1214fd622e20f64736f6c63430005110032",
-  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820d16ffac1bdaf389ede78d5c1f937a7cc2722a9087a9f787feab1214fd622e20f64736f6c63430005110032",
-  "sourceMap": "47:756:1:-;;;121:1;96:26;;235:68;8:9:-1;5:2;;;30:1;27;20:12;5:2;235:68:1;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;235:68:1;;;;;;;;;;;;;;;;291:5;276:12;;:20;;;;;;;;;;;;;;;;;;235:68;47:756;;;;;;",
-  "deployedSourceMap": "47:756:1:-;;;;;",
-  "source": "pragma solidity ^0.5.17;\nimport \"./User.sol\";\n\ncontract Permission {\n    User userContract;\n    uint256 numPermissions = 0;\n    mapping(uint256 => permission) permissionsCreated;\n\n    struct permission{\n        string name;\n    }\n\n    constructor(User users) public {\n        userContract = users;\n    }\n\n    // modifier validPermission(uint256 permissionID) {\n    //     require(permissionID < numPermissions, \"Permission does not exist\");\n    //     _;\n    // }\n\n    // // For creating permissions\n    // function createPermission(string memory name) adminOnly(msg.sender) public {\n    //     require(bytes(name).length != 0, \"Name cannot be blank\");\n    //     permission memory perm = permission(name);\n    //     permissionsCreated[numPermissions] = perm;\n    //     numPermissions += 1;\n    // }\n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract User\",\"name\":\"users\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Permission.sol\":\"Permission\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Permission.sol\":{\"keccak256\":\"0xb4fc8a62f294da14ae9f80a598d085248ac96da7ddc85af3858311247342f3f6\",\"urls\":[\"bzz-raw://53010e8eb277cb004e622d53ca4dc37faf694f46222784ea8bd4707e5351b8fe\",\"dweb:/ipfs/QmNm6XT9MvXhHrwd7WgADZN9gnwWQHJdZu6iZBRTbhhUPK\"]},\"project:/contracts/User.sol\":{\"keccak256\":\"0x20d0c050ec1197b4e7f81112cdcf48c320455afcf8035742cb883ff597f629c2\",\"urls\":[\"bzz-raw://463339e51b577d9c34f9637e2f2c5f9b7d54ccd6b61cd068e708691d6835b22c\",\"dweb:/ipfs/QmeaSw4JBMiXVToRrs5pU5cH6pwPZyaNUZXqwimvameZYC\"]}},\"version\":1}",
+  "bytecode": "0x60806040526000600155348015601457600080fd5b5060405160d138038060d183398181016040526020811015603457600080fd5b8101908080519060200190929190505050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050603e8060936000396000f3fe6080604052600080fdfea265627a7a72315820535ec0df15c8be0f1498979ad17e1596e2cc141ce45cc8a16212f4fc274b212564736f6c63430005110032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820535ec0df15c8be0f1498979ad17e1596e2cc141ce45cc8a16212f4fc274b212564736f6c63430005110032",
+  "sourceMap": "50:781:2:-;;;126:1;101:26;;247:70;8:9:-1;5:2;;;30:1;27;20:12;5:2;247:70:2;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;247:70:2;;;;;;;;;;;;;;;;304:5;289:12;;:20;;;;;;;;;;;;;;;;;;247:70;50:781;;;;;;",
+  "deployedSourceMap": "50:781:2:-;;;;;",
+  "source": "pragma solidity ^0.5.17;\r\nimport \"./User.sol\";\r\n\r\ncontract Permission {\r\n    User userContract;\r\n    uint256 numPermissions = 0;\r\n    mapping(uint256 => permission) permissionsCreated;\r\n\r\n    struct permission{\r\n        string name;\r\n    }\r\n\r\n    constructor(User users) public {\r\n        userContract = users;\r\n    }\r\n\r\n    // modifier validPermission(uint256 permissionID) {\r\n    //     require(permissionID < numPermissions, \"Permission does not exist\");\r\n    //     _;\r\n    // }\r\n\r\n    // // For creating permissions\r\n    // function createPermission(string memory name) adminOnly(msg.sender) public {\r\n    //     require(bytes(name).length != 0, \"Name cannot be blank\");\r\n    //     permission memory perm = permission(name);\r\n    //     permissionsCreated[numPermissions] = perm;\r\n    //     numPermissions += 1;\r\n    // }\r\n}",
   "sourcePath": "C:\\Users\\chang\\OneDrive - National University of Singapore\\Documents\\IS4302 Project\\is4302_grp19\\JianXiang_test\\contracts\\Permission.sol",
   "ast": {
     "absolutePath": "project:/contracts/Permission.sol",
     "exportedSymbols": {
       "Permission": [
-        82
+        89
       ]
     },
-    "id": 83,
+    "id": 90,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 58,
+        "id": 65,
         "literals": [
           "solidity",
           "^",
@@ -40,16 +40,16 @@
           ".17"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "absolutePath": "project:/contracts/User.sol",
         "file": "./User.sol",
-        "id": 59,
+        "id": 66,
         "nodeType": "ImportDirective",
-        "scope": 83,
-        "sourceUnit": 1051,
-        "src": "25:20:1",
+        "scope": 90,
+        "sourceUnit": 1085,
+        "src": "26:20:2",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -59,35 +59,35 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 82,
+        "id": 89,
         "linearizedBaseContracts": [
-          82
+          89
         ],
         "name": "Permission",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 61,
+            "id": 68,
             "name": "userContract",
             "nodeType": "VariableDeclaration",
-            "scope": 82,
-            "src": "73:17:1",
+            "scope": 89,
+            "src": "77:17:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_User_$1050",
+              "typeIdentifier": "t_contract$_User_$1084",
               "typeString": "contract User"
             },
             "typeName": {
               "contractScope": null,
-              "id": 60,
+              "id": 67,
               "name": "User",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1050,
-              "src": "73:4:1",
+              "referencedDeclaration": 1084,
+              "src": "77:4:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_User_$1050",
+                "typeIdentifier": "t_contract$_User_$1084",
                 "typeString": "contract User"
               }
             },
@@ -96,11 +96,11 @@
           },
           {
             "constant": false,
-            "id": 64,
+            "id": 71,
             "name": "numPermissions",
             "nodeType": "VariableDeclaration",
-            "scope": 82,
-            "src": "96:26:1",
+            "scope": 89,
+            "src": "101:26:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -108,10 +108,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 62,
+              "id": 69,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "96:7:1",
+              "src": "101:7:2",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -120,14 +120,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 63,
+              "id": 70,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "121:1:1",
+              "src": "126:1:2",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_0_by_1",
@@ -139,44 +139,44 @@
           },
           {
             "constant": false,
-            "id": 68,
+            "id": 75,
             "name": "permissionsCreated",
             "nodeType": "VariableDeclaration",
-            "scope": 82,
-            "src": "128:49:1",
+            "scope": 89,
+            "src": "134:49:2",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_permission_$71_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_permission_$78_storage_$",
               "typeString": "mapping(uint256 => struct Permission.permission)"
             },
             "typeName": {
-              "id": 67,
+              "id": 74,
               "keyType": {
-                "id": 65,
+                "id": 72,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
-                "src": "136:7:1",
+                "src": "142:7:2",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
               "nodeType": "Mapping",
-              "src": "128:30:1",
+              "src": "134:30:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_permission_$71_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_permission_$78_storage_$",
                 "typeString": "mapping(uint256 => struct Permission.permission)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 66,
+                "id": 73,
                 "name": "permission",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 71,
-                "src": "147:10:1",
+                "referencedDeclaration": 78,
+                "src": "153:10:2",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_permission_$71_storage_ptr",
+                  "typeIdentifier": "t_struct$_permission_$78_storage_ptr",
                   "typeString": "struct Permission.permission"
                 }
               }
@@ -186,15 +186,15 @@
           },
           {
             "canonicalName": "Permission.permission",
-            "id": 71,
+            "id": 78,
             "members": [
               {
                 "constant": false,
-                "id": 70,
+                "id": 77,
                 "name": "name",
                 "nodeType": "VariableDeclaration",
-                "scope": 71,
-                "src": "211:11:1",
+                "scope": 78,
+                "src": "220:11:2",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -202,10 +202,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 69,
+                  "id": 76,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "211:6:1",
+                  "src": "220:6:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -217,34 +217,34 @@
             ],
             "name": "permission",
             "nodeType": "StructDefinition",
-            "scope": 82,
-            "src": "184:45:1",
+            "scope": 89,
+            "src": "192:47:2",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 80,
+              "id": 87,
               "nodeType": "Block",
-              "src": "266:37:1",
+              "src": "278:39:2",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 78,
+                    "id": 85,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 76,
+                      "id": 83,
                       "name": "userContract",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 61,
-                      "src": "276:12:1",
+                      "referencedDeclaration": 68,
+                      "src": "289:12:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$1050",
+                        "typeIdentifier": "t_contract$_User_$1084",
                         "typeString": "contract User"
                       }
                     },
@@ -252,62 +252,62 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 77,
+                      "id": 84,
                       "name": "users",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 73,
-                      "src": "291:5:1",
+                      "referencedDeclaration": 80,
+                      "src": "304:5:2",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_User_$1050",
+                        "typeIdentifier": "t_contract$_User_$1084",
                         "typeString": "contract User"
                       }
                     },
-                    "src": "276:20:1",
+                    "src": "289:20:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$1050",
+                      "typeIdentifier": "t_contract$_User_$1084",
                       "typeString": "contract User"
                     }
                   },
-                  "id": 79,
+                  "id": 86,
                   "nodeType": "ExpressionStatement",
-                  "src": "276:20:1"
+                  "src": "289:20:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 81,
+            "id": 88,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 74,
+              "id": 81,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 73,
+                  "id": 80,
                   "name": "users",
                   "nodeType": "VariableDeclaration",
-                  "scope": 81,
-                  "src": "247:10:1",
+                  "scope": 88,
+                  "src": "259:10:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_User_$1050",
+                    "typeIdentifier": "t_contract$_User_$1084",
                     "typeString": "contract User"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 72,
+                    "id": 79,
                     "name": "User",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 1050,
-                    "src": "247:4:1",
+                    "referencedDeclaration": 1084,
+                    "src": "259:4:2",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_User_$1050",
+                      "typeIdentifier": "t_contract$_User_$1084",
                       "typeString": "contract User"
                     }
                   },
@@ -315,33 +315,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "246:12:1"
+              "src": "258:12:2"
             },
             "returnParameters": {
-              "id": 75,
+              "id": 82,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "266:0:1"
+              "src": "278:0:2"
             },
-            "scope": 82,
-            "src": "235:68:1",
+            "scope": 89,
+            "src": "247:70:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 83,
-        "src": "47:756:1"
+        "scope": 90,
+        "src": "50:781:2"
       }
     ],
-    "src": "0:803:1"
+    "src": "0:831:2"
   },
   "legacyAST": {
     "attributes": {
       "absolutePath": "project:/contracts/Permission.sol",
       "exportedSymbols": {
         "Permission": [
-          82
+          89
         ]
       }
     },
@@ -355,24 +355,24 @@
             ".17"
           ]
         },
-        "id": 58,
+        "id": 65,
         "name": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "attributes": {
-          "SourceUnit": 1051,
+          "SourceUnit": 1085,
           "absolutePath": "project:/contracts/User.sol",
           "file": "./User.sol",
-          "scope": 83,
+          "scope": 90,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 59,
+        "id": 66,
         "name": "ImportDirective",
-        "src": "25:20:1"
+        "src": "26:20:2"
       },
       {
         "attributes": {
@@ -386,17 +386,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            82
+            89
           ],
           "name": "Permission",
-          "scope": 83
+          "scope": 90
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "userContract",
-              "scope": 82,
+              "scope": 89,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "contract User",
@@ -408,23 +408,23 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "User",
-                  "referencedDeclaration": 1050,
+                  "referencedDeclaration": 1084,
                   "type": "contract User"
                 },
-                "id": 60,
+                "id": 67,
                 "name": "UserDefinedTypeName",
-                "src": "73:4:1"
+                "src": "77:4:2"
               }
             ],
-            "id": 61,
+            "id": 68,
             "name": "VariableDeclaration",
-            "src": "73:17:1"
+            "src": "77:17:2"
           },
           {
             "attributes": {
               "constant": false,
               "name": "numPermissions",
-              "scope": 82,
+              "scope": 89,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -436,9 +436,9 @@
                   "name": "uint256",
                   "type": "uint256"
                 },
-                "id": 62,
+                "id": 69,
                 "name": "ElementaryTypeName",
-                "src": "96:7:1"
+                "src": "101:7:2"
               },
               {
                 "attributes": {
@@ -453,20 +453,20 @@
                   "type": "int_const 0",
                   "value": "0"
                 },
-                "id": 63,
+                "id": 70,
                 "name": "Literal",
-                "src": "121:1:1"
+                "src": "126:1:2"
               }
             ],
-            "id": 64,
+            "id": 71,
             "name": "VariableDeclaration",
-            "src": "96:26:1"
+            "src": "101:26:2"
           },
           {
             "attributes": {
               "constant": false,
               "name": "permissionsCreated",
-              "scope": 82,
+              "scope": 89,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(uint256 => struct Permission.permission)",
@@ -484,36 +484,36 @@
                       "name": "uint256",
                       "type": "uint256"
                     },
-                    "id": 65,
+                    "id": 72,
                     "name": "ElementaryTypeName",
-                    "src": "136:7:1"
+                    "src": "142:7:2"
                   },
                   {
                     "attributes": {
                       "contractScope": null,
                       "name": "permission",
-                      "referencedDeclaration": 71,
+                      "referencedDeclaration": 78,
                       "type": "struct Permission.permission"
                     },
-                    "id": 66,
+                    "id": 73,
                     "name": "UserDefinedTypeName",
-                    "src": "147:10:1"
+                    "src": "153:10:2"
                   }
                 ],
-                "id": 67,
+                "id": 74,
                 "name": "Mapping",
-                "src": "128:30:1"
+                "src": "134:30:2"
               }
             ],
-            "id": 68,
+            "id": 75,
             "name": "VariableDeclaration",
-            "src": "128:49:1"
+            "src": "134:49:2"
           },
           {
             "attributes": {
               "canonicalName": "Permission.permission",
               "name": "permission",
-              "scope": 82,
+              "scope": 89,
               "visibility": "public"
             },
             "children": [
@@ -521,7 +521,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "name",
-                  "scope": 71,
+                  "scope": 78,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "string",
@@ -534,19 +534,19 @@
                       "name": "string",
                       "type": "string"
                     },
-                    "id": 69,
+                    "id": 76,
                     "name": "ElementaryTypeName",
-                    "src": "211:6:1"
+                    "src": "220:6:2"
                   }
                 ],
-                "id": 70,
+                "id": 77,
                 "name": "VariableDeclaration",
-                "src": "211:11:1"
+                "src": "220:11:2"
               }
             ],
-            "id": 71,
+            "id": 78,
             "name": "StructDefinition",
-            "src": "184:45:1"
+            "src": "192:47:2"
           },
           {
             "attributes": {
@@ -558,7 +558,7 @@
                 null
               ],
               "name": "",
-              "scope": 82,
+              "scope": 89,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -570,7 +570,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "users",
-                      "scope": 81,
+                      "scope": 88,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "contract User",
@@ -582,22 +582,22 @@
                         "attributes": {
                           "contractScope": null,
                           "name": "User",
-                          "referencedDeclaration": 1050,
+                          "referencedDeclaration": 1084,
                           "type": "contract User"
                         },
-                        "id": 72,
+                        "id": 79,
                         "name": "UserDefinedTypeName",
-                        "src": "247:4:1"
+                        "src": "259:4:2"
                       }
                     ],
-                    "id": 73,
+                    "id": 80,
                     "name": "VariableDeclaration",
-                    "src": "247:10:1"
+                    "src": "259:10:2"
                   }
                 ],
-                "id": 74,
+                "id": 81,
                 "name": "ParameterList",
-                "src": "246:12:1"
+                "src": "258:12:2"
               },
               {
                 "attributes": {
@@ -606,9 +606,9 @@
                   ]
                 },
                 "children": [],
-                "id": 75,
+                "id": 82,
                 "name": "ParameterList",
-                "src": "266:0:1"
+                "src": "278:0:2"
               },
               {
                 "children": [
@@ -631,13 +631,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 61,
+                              "referencedDeclaration": 68,
                               "type": "contract User",
                               "value": "userContract"
                             },
-                            "id": 76,
+                            "id": 83,
                             "name": "Identifier",
-                            "src": "276:12:1"
+                            "src": "289:12:2"
                           },
                           {
                             "attributes": {
@@ -645,43 +645,43 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 73,
+                              "referencedDeclaration": 80,
                               "type": "contract User",
                               "value": "users"
                             },
-                            "id": 77,
+                            "id": 84,
                             "name": "Identifier",
-                            "src": "291:5:1"
+                            "src": "304:5:2"
                           }
                         ],
-                        "id": 78,
+                        "id": 85,
                         "name": "Assignment",
-                        "src": "276:20:1"
+                        "src": "289:20:2"
                       }
                     ],
-                    "id": 79,
+                    "id": 86,
                     "name": "ExpressionStatement",
-                    "src": "276:20:1"
+                    "src": "289:20:2"
                   }
                 ],
-                "id": 80,
+                "id": 87,
                 "name": "Block",
-                "src": "266:37:1"
+                "src": "278:39:2"
               }
             ],
-            "id": 81,
+            "id": 88,
             "name": "FunctionDefinition",
-            "src": "235:68:1"
+            "src": "247:70:2"
           }
         ],
-        "id": 82,
+        "id": 89,
         "name": "ContractDefinition",
-        "src": "47:756:1"
+        "src": "50:781:2"
       }
     ],
-    "id": 83,
+    "id": 90,
     "name": "SourceUnit",
-    "src": "0:803:1"
+    "src": "0:831:2"
   },
   "compiler": {
     "name": "solc",
@@ -691,12 +691,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x845A62178838777F0f987fAa2DD334BE3da9b9A7",
-      "transactionHash": "0xb973424420c4292099b9bc8e2a16e489b92147281ece8a783424b277b1bbb0d2"
+      "address": "0x6E209a474002F5f4946Fc9fFDc0525fe9B191258",
+      "transactionHash": "0x5bf06084b6dc0dfc8c2759d401dac648add07f8fe2b34352047945a2bba4d51d"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-03-21T04:20:31.573Z",
+  "updatedAt": "2023-03-25T04:17:17.981Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

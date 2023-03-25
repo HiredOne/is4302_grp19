@@ -185,86 +185,69 @@ contract RequestApprovalManagement {
     // Helper functions
     
     function createNewRole(string memory roleName) public {
-        // Role Creation
-        roleContract.createRole(roleName);
+        // // Role Creation
+        // roleContract.createRole(roleName);
 
         emit createNewRoleRequestApproved(roleName);
     }
 
     function removeRole(uint256 roleID, address userID) public {
-        //  Remove role
-        roleContract.removeRoleUser(roleID, userID);
+        // //  Remove role
+        // roleContract.removeRoleUser(roleID, userID);
 
         emit removeRoleRequestApproved(roleID, userID);
     }
 
     function addExistingDatasetToRole(uint256 permissionID, uint256 roleID) public {
-        // Give Permission to role
-        permissionContract.givePermissionRole(permissionID, roleID);
-        // Give role to permission
-        roleContract.giveRolePermission(roleID, permissionID); 
+        // // Give Permission to role
+        // permissionContract.givePermissionRole(permissionID, roleID);
+        // // Give role to permission
+        // roleContract.giveRolePermission(roleID, permissionID); 
 
         emit addExistingDatasetToRolesRequestApproved(permissionID, roleID);
     }
 
     function removeDatasetFromRole(uint256 permissionID, uint256 roleID) public {
-        // Remove Permission to role
-        permissionContract.removePermissionRole(permissionID, roleID); 
-        // Remove role to permission
-        roleContract.removeRolePermission(roleID, permissionID); 
+        // // Remove Permission to role
+        // permissionContract.removePermissionRole(permissionID, roleID); 
+        // // Remove role to permission
+        // roleContract.removeRolePermission(roleID, permissionID); 
         
         emit removeDatasetFromRolesRequestApproved(permissionID, roleID);
     }
 
     function addUsersToRole(address userID, uint256 roleID) public {
-        // Give user to role
-        roleContract.giveRoleUser(roleID, userID);
-        // Give role to user
-        userContract.giveUserRole(userID, roleID);
+        // // Give user to role
+        // roleContract.giveRoleUser(roleID, userID);
+        // // Give role to user
+        // userContract.giveUserRole(userID, roleID);
 
         emit addUsersToRolesRequestApproved(userID, roleID);
     }
 
     function removeUsersFromRole(address userID, uint256 roleID) public {
-        // Remove user from role
-        roleContract.removeRoleUser(roleID, userID);
-        // Remove role from user
-        userContract.removeUserRole(userID, roleID);
+        // // Remove user from role
+        // roleContract.removeRoleUser(roleID, userID);
+        // // Remove role from user
+        // userContract.removeUserRole(userID, roleID);
 
         emit removeUsersFromRolesRequestApproved(userID, roleID);
     }
 
     function uploadDatasetToNewRole(string memory datasetIdentifier, string memory roleName, address requestor) public {
-        // Create Permission
-        uint256 permissionID = permissionContract.createPermission(datasetIdentifier);
-        
-        // Role Creation
-        uint256 roleID = roleContract.createRole(roleName);
+     
+        // // Upload dataset
+        // datasetuploaderContract.uploadDataset(datasetIdentifier, 0, roleName,requestor);
 
-        // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier,requestor);
-
-        // Give Permission to role
-        permissionContract.givePermissionRole(permissionID, roleID);
-        // Give role to permission
-        roleContract.giveRolePermission(roleID, permissionID); 
-
-        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName);
+        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, requestor);
     }
 
     function uploadDatasetToExistingRole(string memory datasetIdentifier, uint256 roleID, address requestor) public {
-        // Create Permission
-        uint256 permissionID = permissionContract.createPermission(datasetIdentifier);
 
-        // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier,requestor);
+        // // Upload dataset
+        // datasetuploaderContract.uploadDataset(datasetIdentifier, roleID, "",requestor); 
 
-        // Give Permission to role
-        permissionContract.givePermissionRole(permissionID, roleID);
-        // Give role to permission
-        roleContract.giveRolePermission(roleID, permissionID); 
-
-       emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID);
+        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, requestor);
     }
 
 

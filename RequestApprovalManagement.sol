@@ -235,36 +235,19 @@ contract RequestApprovalManagement {
     }
 
     function uploadDatasetToNewRole(string memory datasetIdentifier, string memory roleName, address requestor) public {
-        // Create Permission
-        uint256 permissionID = permissionContract.createPermission(datasetIdentifier);
-        
-        // Role Creation
-        uint256 roleID = roleContract.createRole(roleName);
-
+     
         // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier,requestor);
+        datasetuploaderContract.uploadDataset(datasetIdentifier, 0, roleName,requestor);
 
-        // Give Permission to role
-        permissionContract.givePermissionRole(permissionID, roleID);
-        // Give role to permission
-        roleContract.giveRolePermission(roleID, permissionID); 
-
-        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName);
+        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, requestor);
     }
 
     function uploadDatasetToExistingRole(string memory datasetIdentifier, uint256 roleID, address requestor) public {
-        // Create Permission
-        uint256 permissionID = permissionContract.createPermission(datasetIdentifier);
 
         // Upload dataset
-        datasetuploaderContract.uploadDataset(datasetIdentifier,requestor);
+        datasetuploaderContract.uploadDataset(datasetIdentifier, roleID, "",requestor); 
 
-        // Give Permission to role
-        permissionContract.givePermissionRole(permissionID, roleID);
-        // Give role to permission
-        roleContract.giveRolePermission(roleID, permissionID); 
-
-       emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID);
+        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, requestor);
     }
 
 

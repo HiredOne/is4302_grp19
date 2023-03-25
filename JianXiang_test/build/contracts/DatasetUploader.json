@@ -1,0 +1,217 @@
+{
+  "contractName": "DatasetUploader",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/DatasetUploader.sol\":\"DatasetUploader\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/DatasetUploader.sol\":{\"keccak256\":\"0x08c411078545f97c04a09c6b1e81ea264ad0ee4ae0a05826f2b4fd6cdcbd352c\",\"urls\":[\"bzz-raw://c6e4a3c51fa9a738c83c29509049ce65390414a94eabf291e224598f04914bcd\",\"dweb:/ipfs/QmadDDATbEbM6W3nKK9HezZJDccxCpAJVotL1MhKugbDq7\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea265627a7a72315820050bcb87c6618db4a2eabb8c3dd73f7e5510eec62b1a48af3337273471a1c9ad64736f6c63430005110032",
+  "deployedBytecode": "0x6080604052600080fdfea265627a7a72315820050bcb87c6618db4a2eabb8c3dd73f7e5510eec62b1a48af3337273471a1c9ad64736f6c63430005110032",
+  "sourceMap": "61:2168:0:-;;;343:29;8:9:-1;5:2;;;30:1;27;20:12;5:2;343:29:0;61:2168;;;;;;",
+  "deployedSourceMap": "61:2168:0:-;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.5.17;\r\n\r\ncontract DatasetUploader {\r\n    // enum adminState {\r\n    //     isAdmin,\r\n    //     notAdmin\r\n    // }\r\n\r\n    // mapping(address => user) usersCreated;\r\n\r\n    // struct user {\r\n    //     string name;\r\n    //     adminState admin;\r\n    //     uint256 tokenCount;\r\n    // }\r\n\r\n    constructor() public {\r\n    }\r\n\r\n    // // Modifier where function is only callable by a system admin\r\n    // modifier adminOnly(address caller) {\r\n    //     require(usersCreated[caller].admin == adminState.isAdmin);\r\n    //     _;\r\n    // }\r\n\r\n    // // For creating new users\r\n    // function createUser(string memory name) public {\r\n    //     // Prerequisite checks\r\n    //     require(bytes(name).length != 0, \"Name cannot be blank\");\r\n    //     require(\r\n    //         bytes(usersCreated[msg.sender].name).length != 0,\r\n    //         \"User already has an account\"\r\n    //     );\r\n\r\n    //     // Create User\r\n    //     user memory newUser = user(name, adminState.notAdmin, 0);\r\n\r\n    //     // Add to mapping\r\n    //     usersCreated[msg.sender] = newUser;\r\n    // }\r\n\r\n    // // For deleting users\r\n    // function deleteuser(address userID) public adminOnly(msg.sender) {\r\n    //     require(\r\n    //         bytes(usersCreated[msg.sender].name).length != 0,\r\n    //         \"User doesn't exist\"\r\n    //     );\r\n    //     delete usersCreated[userID];\r\n    // }\r\n\r\n    // // For issuing admin rights\r\n    // function giveAdmin(address userID) public adminOnly(msg.sender) {\r\n    //     usersCreated[userID].admin = adminState.isAdmin;\r\n    // }\r\n\r\n    // // For removing admin rights\r\n    // function removeAdmin(address userID) public adminOnly(msg.sender) {\r\n    //     usersCreated[userID].admin = adminState.notAdmin;\r\n    // }\r\n\r\n    // // For issuing tokens\r\n    // function giveTokens(\r\n    //     address userID,\r\n    //     uint256 amt\r\n    // ) public adminOnly(msg.sender) {\r\n    //     usersCreated[userID].tokenCount += amt;\r\n    // }\r\n\r\n    // // Deduct tokens after use\r\n    // function deductTokens(\r\n    //     address userID,\r\n    //     uint256 amt\r\n    // ) public adminOnly(msg.sender) {\r\n    //     usersCreated[userID].tokenCount -= amt;\r\n    // }\r\n}\r\n",
+  "sourcePath": "C:\\Users\\chang\\OneDrive - National University of Singapore\\Documents\\IS4302 Project\\is4302_grp19\\JianXiang_test\\contracts\\DatasetUploader.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/DatasetUploader.sol",
+    "exportedSymbols": {
+      "DatasetUploader": [
+        6
+      ]
+    },
+    "id": 7,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "DatasetUploader",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "364:8:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "354:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "364:0:0"
+            },
+            "scope": 6,
+            "src": "343:29:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "61:2168:0"
+      }
+    ],
+    "src": "33:2198:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/DatasetUploader.sol",
+      "exportedSymbols": {
+        "DatasetUploader": [
+          6
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.5",
+            ".17"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "33:24:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            6
+          ],
+          "name": "DatasetUploader",
+          "scope": 7
+        },
+        "children": [
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 6,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 2,
+                "name": "ParameterList",
+                "src": "354:2:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 3,
+                "name": "ParameterList",
+                "src": "364:0:0"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 4,
+                "name": "Block",
+                "src": "364:8:0"
+              }
+            ],
+            "id": 5,
+            "name": "FunctionDefinition",
+            "src": "343:29:0"
+          }
+        ],
+        "id": 6,
+        "name": "ContractDefinition",
+        "src": "61:2168:0"
+      }
+    ],
+    "id": 7,
+    "name": "SourceUnit",
+    "src": "33:2198:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x4240e98e9bc95958dbb54Cee3bc6805D4213c34d",
+      "transactionHash": "0x3b464ef50feccbeb70780e34cb5404c420653cc9864bcf47edeed8c9989d5a51"
+    }
+  },
+  "schemaVersion": "3.4.11",
+  "updatedAt": "2023-03-25T04:17:18.009Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
