@@ -241,7 +241,7 @@ contract RequestApprovalManagement {
         string memory pointer = randomString(10);
 
         // // Upload dataset
-        // datasetuploaderContract.uploadDataset(datasetIdentifier, 0, roleName, pointer,requestor);
+        // datasetuploaderContract.uploadDatasetToNewRole(datasetIdentifier,roleName, pointer,requestor);
 
         emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, pointer, requestor);
     }
@@ -253,7 +253,7 @@ contract RequestApprovalManagement {
         string memory pointer = randomString(10);
 
         // // Upload dataset
-        // datasetuploaderContract.uploadDataset(datasetIdentifier, roleID, "", pointer, requestor); 
+        // datasetuploaderContract.uploadDatasetToExistingRole(datasetIdentifier, roleID, pointer, requestor);
 
         emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, pointer, requestor);
     }
