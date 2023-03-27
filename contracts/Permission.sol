@@ -1,7 +1,7 @@
 pragma solidity ^0.5.17;
 import "./User.sol";
 
-contract Permission is User {
+contract Permission {
     User userContract;
     uint256 numPermissions = 0;
     mapping(uint256 => permission) permissionsCreated;
@@ -14,14 +14,15 @@ contract Permission is User {
         userContract = users;
     }
 
-    modifier validPermission(uint256 permissionID) {
+    // Created as a function for use in other contracts
+    function validPermission(uint256 permissionID) public view {
         require(permissionID < numPermissions, "Permission does not exist");
-        _;
     }
 
     // For creating permissions
-    function createPermission(string memory name) adminOnly(msg.sender) public {
+    function createPermission(string memory name) public {
         require(bytes(name).length != 0, "Name cannot be blank");
+        userContract.adminOnly(msg.sender);
         permission memory perm = permission(name);
         permissionsCreated[numPermissions] = perm;
         numPermissions += 1;

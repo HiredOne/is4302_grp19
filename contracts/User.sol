@@ -19,10 +19,9 @@ contract User {
         createUser(name);
     }
 
-    // Modifier where function is only callable by a system admin
-    modifier adminOnly(address caller) {
+    // Created as a function instead of modifier so that other contracts can use
+    function adminOnly(address caller) public view {
         require(usersCreated[caller].admin == adminState.isAdmin);
-        _;
     }
 
     // For creating new users
@@ -30,7 +29,7 @@ contract User {
         // Prerequisite checks
         require(bytes(name).length != 0, "Name cannot be blank");
         require(
-            bytes(usersCreated[msg.sender].name).length != 0,
+            bytes(usersCreated[msg.sender].name).length == 0,
             "User already has an account"
         );
 
@@ -42,46 +41,45 @@ contract User {
     }
 
     // For deleting users
-    function deleteuser(address userID) public adminOnly(msg.sender) {
+    function deleteuser(address userID) public {
         require(
             bytes(usersCreated[msg.sender].name).length != 0,
             "User doesn't exist"
         );
+        adminOnly(msg.sender);
         delete usersCreated[userID];
     }
 
     // For issuing admin rights
-    function giveAdmin(address userID) public adminOnly(msg.sender) {
+    function giveAdmin(address userID) public {
+        adminOnly(msg.sender);
         usersCreated[userID].admin = adminState.isAdmin;
     }
 
     // For removing admin rights
-    function removeAdmin(address userID) public adminOnly(msg.sender) {
+    function removeAdmin(address userID) public {
+        adminOnly(msg.sender);
         usersCreated[userID].admin = adminState.notAdmin;
     }
 
     // For issuing tokens
-    function giveTokens(
-        address userID,
-        uint256 amt
-    ) public adminOnly(msg.sender) {
+    function giveTokens(address userID, uint256 amt) public {
+        adminOnly(msg.sender);
         usersCreated[userID].tokenCount += amt;
     }
 
     // Deduct tokens after use
-    function deductTokens(
-        address userID,
-        uint256 amt
-    ) public adminOnly(msg.sender) {
+    function deductTokens(address userID, uint256 amt) public {
+        adminOnly(msg.sender);
         usersCreated[userID].tokenCount -= amt;
     }
 
     // Getter Functions
-    function getTokenBalance(address user) public view returns (uint256) {
-        return usersCreated[user].tokenCount;
+    function getTokenBalance(address userID) public view returns (uint256) {
+        return usersCreated[userID].tokenCount;
     }
 
-    function checkAdmin(address user) public view returns (adminState) {
-        return usersCreated[user].admin;
+    function checkAdmin(address userID) public view returns (adminState) {
+        return usersCreated[userID].admin;
     }
 }

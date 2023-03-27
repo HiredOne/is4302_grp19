@@ -2,7 +2,7 @@ pragma solidity ^0.5.17;
 import "./User.sol";
 import "./Permission.sol";
 
-contract Role is User, Permission {
+contract Role {
     User userContract;
     Permission permContract;
     uint256 numRoles;
@@ -36,26 +36,31 @@ contract Role is User, Permission {
     }
 
     // For role to inherit another role
-    function inheritRole(uint256 roleToInherit, uint256 inheritingRole) validRole(roleToInherit) validRole(inheritingRole) adminOnly(msg.sender) public {
+    function inheritRole(uint256 roleToInherit, uint256 inheritingRole) validRole(roleToInherit) validRole(inheritingRole) public {
         // Check that role has not already been inherited
         require(rolesCreated[inheritingRole].inheritedRoles[roleToInherit] == 0, "Role already inherited");
+        userContract.adminOnly(msg.sender);
 
         rolesCreated[inheritingRole].inheritedRoles[roleToInherit] = 1; // Inherit
     }
 
     // For assigning permissions to a role
-    function assignPermission(uint256 roleID, uint256 permission) adminOnly(msg.sender) validRole(roleID) validPermission(permission) public {
+    function assignPermission(uint256 roleID, uint256 permission) validRole(roleID) public {
         // Check that permission has not already been assigned
         require(rolesCreated[roleID].assignedPermissions[roleID] == 0, "Permission already assigned to this role");
+        userContract.adminOnly(msg.sender);
+        permContract.validPermission(permission);
         
         rolesGivenPermission[permission].push(roleID); // Update rolesGivenPermission
         rolesCreated[roleID].assignedPermissions[permission] = 1; // Assign permission
     }
 
     // For removing permissions from a role
-    function removePermission(uint256 roleID, uint256 permission) adminOnly(msg.sender) validRole(roleID) validPermission(permission) public {
+    function removePermission(uint256 roleID, uint256 permission) validRole(roleID) public {
         // Check that permission has already been assigned
         require(rolesCreated[roleID].assignedPermissions[roleID] == 1, "Role does not have this permission yet");
+        userContract.adminOnly(msg.sender);
+        permContract.validPermission(permission);
 
         // Update rolesGivenPermission
         uint256 [] memory roles = rolesGivenPermission[permission]; 
@@ -68,17 +73,19 @@ contract Role is User, Permission {
     }
 
     // For assigning role to a user
-    function giveUserRole(address userID, uint256 role) adminOnly(msg.sender) validRole(role) public {
+    function giveUserRole(address userID, uint256 roleID) validRole(roleID) public {
         // Check that role has not already been assigned
-        require(rolesCreated[role].assignedUsers[userID] == 0, "Role has already been assigned");
+        require(rolesCreated[roleID].assignedUsers[userID] == 0, "Role has already been assigned");
+        userContract.adminOnly(msg.sender);
 
-        rolesGrantedToUser[userID][role] = 1; // Update rolesGrantedToUser
-        rolesCreated[role].assignedUsers[userID] = 1; // Assign role
+        rolesGrantedToUser[userID][roleID] = 1; // Update rolesGrantedToUser
+        rolesCreated[roleID].assignedUsers[userID] = 1; // Assign role
     }
 
     // For removing role assigned to a user
-    function removeUserRole(address userID, uint256 roleID) adminOnly(msg.sender) validRole(roleID) public {
+    function removeUserRole(address userID, uint256 roleID) validRole(roleID) public {
         require(rolesCreated[roleID].assignedUsers[userID] == 1, "User does not have this role yet");
+        userContract.adminOnly(msg.sender);
 
         // Update rolesGrantedToUser
         uint256 [] memory roles = rolesGrantedToUser[userID];
@@ -92,11 +99,14 @@ contract Role is User, Permission {
     }
 
     // Check whether user has a particular permission
-    function checkUserPermission(address userID, uint256 permission) validPermission(permission) view public returns (bool) {
+    function checkUserPermission(address userID, uint256 permission) view public returns (bool) {
+        // Check validity of permission
+        permContract.validPermission(permission);
+
         uint256 [] memory roles = rolesGrantedToUser[userID];
         for (uint i = 0; i < roles.length; i++) {
             role storage r = rolesCreated[i];
-            if (r.assignedPermissions[permission] == 1){
+            if (r.assignedPermissions[permission] == 1) {
                 return true;
             }
         }
