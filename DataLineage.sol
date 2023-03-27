@@ -10,7 +10,7 @@ contract DataLineage {
 
     struct dataset {
         string id;
-        uint256 pointer;
+        string pointer;
         address requestor;
         string query;
         string lineage;
@@ -24,7 +24,7 @@ contract DataLineage {
     event addChildren(string parent, string children);
 
     //Call this for perm changes to datasets
-    function changeExistingDataset(string memory new_id, uint256 pointer, address requestor, string memory query, string memory parent) public {
+    function changeExistingDataset(string memory new_id, string memory pointer, address requestor, string memory query, string memory parent) public {
         string memory _lineage = datasets[parent].lineage;
         _lineage = _lineage.concat("; ").concat(query);
         dataset memory newDataset = dataset(new_id, pointer, requestor, query, _lineage, parent, "");
@@ -34,7 +34,7 @@ contract DataLineage {
     }
 
     //Call this for new datasets.
-    function addNewDataset(string memory id, uint256 pointer, address requestor) public {
+    function addNewDataset(string memory id, string memory pointer, address requestor) public {
         dataset memory newDataset = dataset(id, pointer, requestor, id, id, "", "");
         datasets[id] = newDataset;
         emit addDataset(id);

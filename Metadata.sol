@@ -7,6 +7,7 @@ contract Metadata {
     using Strings for string;
     using Integers for uint;
 
+
     struct metadata {
         string title;
         string desc;
@@ -38,6 +39,8 @@ contract Metadata {
     mapping(uint256 => uint256 []) tagList;
     //Maps by category then tag
     mapping(uint256 => mapping(uint256 => uint256 [])) searchList;
+    //Mapping of category/tag/both to dataset id to index
+    mapping(string => mapping(uint256 => uint256)) indexes;
     //mapping for search functions
     mapping(uint8 => uint256 []) searchResults;
 
@@ -47,6 +50,7 @@ contract Metadata {
     event tagAdded(string name);
 
     function addCategory(string memory category) public returns (uint256) {
+        //Make admin only checkAdmin(address)
         numOfCategories++;
         catToID[category] = numOfCategories;
         idToCat[numOfCategories] = category;
@@ -54,6 +58,7 @@ contract Metadata {
     }
 
     function addTag(string memory tag) public returns (uint256) {
+        //Make admin only
         numOfTags++;
         tagToID[tag] = numOfTags;
         idToTag[numOfTags] = tag;
@@ -74,21 +79,45 @@ contract Metadata {
 
     //Overwrites current metadata for the dataset
     function addMetadata(string memory name, string memory title, string memory desc, uint256 category, uint256 [] memory tags, string memory dateUpdated, string memory owner) public {
+        //Require permission
         require(category <= numOfCategories, "Invalid Category");
+        bool isNew = false;
         if (nameToID[name] == 0) {
             numOfDatasets++;
             idToName[numOfDatasets] = name;
             nameToID[name] = numOfDatasets;
+            isNew = true;
         }
         metadata memory newMetadata = metadata(title, desc, category, tags, dateUpdated, owner);
         metadatas[name] = newMetadata;
         uint256 id = nameToID[name];
+        uint256 index;
+        string memory cat = idToCat[category];
+        if (!isNew) {
+            //0 means deleted, index starts from 1 so index - 1 is the actual position
+            index = indexes[cat][id];
+            catList[category][index - 1] = 0;
+        }
         catList[category].push(id);
+        index = catList[category].length;
+        indexes[cat][id] = index;
         if (tags.length > 0) {
             for (uint8 i = 0; i < tags.length; i++) {
                         uint256 t = tags[i];
+                        string memory tagStr = idToTag[t];
+                        if (!isNew) {
+                            //0 means deleted, index starts from 1 so index - 1 is the actual position
+                            index = indexes[tagStr][id];
+                            tagList[t][index - 1] = 0;
+                            index = indexes[cat.concat(tagStr)][id];
+                            searchList[category][t][index - 1] = 0;
+                        }
                         tagList[t].push(id);
+                        index = tagList[t].length;
+                        indexes[tagStr][id] = index;
                         searchList[category][t].push(id);
+                        index = searchList[category][t].length;
+                        indexes[cat.concat(tagStr)][id] = index;
             }
         }
         emit metadataAdded(name, title, desc, category, tags, dateUpdated, owner);
