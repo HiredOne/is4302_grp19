@@ -32,12 +32,12 @@ contract RequestApprovalManagement {
         requestTypeEnum requestType;
         uint256 creationDateTime;
         uint256 updatedDateTime;
-        string adminAdditionalRemarks;
         string roleName;
         string datasetIdentifier;
         uint256 roleID; 
         uint256 permissionID;
         address userID;
+        string permissionName;
     }
 
     User userContract;
@@ -55,10 +55,10 @@ contract RequestApprovalManagement {
     event removeDatasetFromRolesRequestApproved(uint256 permissionID, uint256 roleID);
     event addUsersToRolesRequestApproved(address userID, uint256 roleID);
     event removeUsersFromRolesRequestApproved(address userID, uint256 roleID);
-    event uploadDatasetToNewRoleRequestApproved(string datasetIdentifier, string roleName, string pointer, address requestor);
-    event uploadDatasetToExistingRoleRequestApproved(string datasetIdentifier, uint256 roleID, string pointer, address requestor);
+    event uploadDatasetToNewRoleRequestApproved(string datasetIdentifier, string roleName, string pointer, address requestor, string permissionName);
+    event uploadDatasetToExistingRoleRequestApproved(string datasetIdentifier, uint256 roleID, string pointer, address requestor, string permissionName);
 
-    event rejectRequestEvent(uint256 requestID, string adminAdditionalRemarks);
+    event rejectRequestEvent(uint256 requestID);
 
     constructor(User userAddress, Permission permissionAddress, Role roleAddress, DatasetUploader datasetUploaderAddress) public {
         userContract = userAddress;
@@ -96,11 +96,11 @@ contract RequestApprovalManagement {
 
         } else if (requestsMapping[requestID].requestType == requestTypeEnum.uploadDatasetToNewRoleRequest) {
 
-            uploadDatasetToNewRole(requestsMapping[requestID].datasetIdentifier, requestsMapping[requestID].roleName, requestsMapping[requestID].requesterAddress);
+            uploadDatasetToNewRole(requestsMapping[requestID].datasetIdentifier, requestsMapping[requestID].roleName, requestsMapping[requestID].requesterAddress, requestsMapping[requestID].permissionName);
 
         } else if (requestsMapping[requestID].requestType == requestTypeEnum.uploadDatasetToExistingRoleRequest) {
 
-            uploadDatasetToExistingRole(requestsMapping[requestID].datasetIdentifier, requestsMapping[requestID].roleID, requestsMapping[requestID].requesterAddress);
+            uploadDatasetToExistingRole(requestsMapping[requestID].datasetIdentifier, requestsMapping[requestID].roleID, requestsMapping[requestID].requesterAddress, requestsMapping[requestID].permissionName);
 
         }       
 
@@ -109,58 +109,57 @@ contract RequestApprovalManagement {
         requestsMapping[requestID].requestStatus = statusEnum.approved;
     }
 
-    function rejectRequest(uint256 requestID, string memory adminAdditionalRemarks) public {
-        requestsMapping[requestID].adminAdditionalRemarks = adminAdditionalRemarks;
+    function rejectRequest(uint256 requestID) public {
         requestsMapping[requestID].requestStatus = statusEnum.rejected;
-        emit rejectRequestEvent(requestID, adminAdditionalRemarks);
+        emit rejectRequestEvent(requestID);
     }
 
     // Creating Requests
 
     function createNewRoleRequest(string memory roleName) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, "", roleName, "", 0,0,address(0));
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.createNewRoleRequest, block.timestamp,block.timestamp, roleName, "", 0,0,address(0), "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function removeRoleRequest(uint256 roleID, address userID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID,0,userID);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeRoleRequest, block.timestamp,block.timestamp, "", "", roleID,0,userID, "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function addExistingDatasetToRoleRequest(uint256 permissionID, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.addExistingDatasetToRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID,permissionID,address(0));
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.addExistingDatasetToRoleRequest, block.timestamp,block.timestamp, "", "", roleID,permissionID,address(0), "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function removeDatasetFromRoleRequest(uint256 permissionID, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeDatasetFromRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, permissionID,address(0));
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeDatasetFromRoleRequest, block.timestamp,block.timestamp, "", "", roleID, permissionID,address(0), "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function addUsersToRoleRequest(address userID, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.addUserToRoleRequest, block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.addUserToRoleRequest, block.timestamp,block.timestamp, "", "", roleID, 0, userID, "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
     function removeUsersFromRoleRequest(address userID, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeUserFromRoleRequest , block.timestamp,block.timestamp, "", "", "", roleID, 0, userID);
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeUserFromRoleRequest , block.timestamp,block.timestamp, "", "", roleID, 0, userID, "");
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    function uploadDatasetToNewRoleRequest(string memory datasetIdentifier, string memory roleName) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.uploadDatasetToNewRoleRequest , block.timestamp,block.timestamp, "", roleName, datasetIdentifier, 0, 0, address(0));
+    function uploadDatasetToNewRoleRequest(string memory datasetIdentifier, string memory roleName, string memory permissionName) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.uploadDatasetToNewRoleRequest , block.timestamp,block.timestamp, roleName, datasetIdentifier, 0, 0, address(0), permissionName);
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    function uploadDatasetToExistingRoleRequest(string memory datasetIdentifier, uint256 roleID) public {
-        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.uploadDatasetToExistingRoleRequest , block.timestamp,block.timestamp, "", "", datasetIdentifier, roleID, 0, address(0));
+    function uploadDatasetToExistingRoleRequest(string memory datasetIdentifier, uint256 roleID, string memory permissionName) public {
+        Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.uploadDatasetToExistingRoleRequest , block.timestamp,block.timestamp, "", datasetIdentifier, roleID, 0, address(0), permissionName);
         requestsMapping[totalNumberOfRequest] = newRequest;
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
@@ -170,10 +169,6 @@ contract RequestApprovalManagement {
 
     function getRequestStatus(uint256 requestID) public view returns(requestTypeEnum) {
         return requestsMapping[requestID].requestType;
-    }
-
-    function getRequestAdminRemarks(uint256 requestID) public view returns(string memory) {
-        return requestsMapping[requestID].adminAdditionalRemarks;
     }
 
     function getTotalNumberOfRequests() public view returns(uint256) {
@@ -234,28 +229,28 @@ contract RequestApprovalManagement {
         emit removeUsersFromRolesRequestApproved(userID, roleID);
     }
 
-    function uploadDatasetToNewRole(string memory datasetIdentifier, string memory roleName, address requestor) public {
+    function uploadDatasetToNewRole(string memory datasetIdentifier, string memory roleName, address requestor, string memory permissionName) public {
      
         //This pointer is a simulation --> This by right links to external DB
         //  We are now simulating it by generating a random string of length 10
         string memory pointer = randomString(10);
 
-        // // Upload dataset
-        // datasetuploaderContract.uploadDatasetToNewRole(datasetIdentifier,roleName, pointer,requestor);
+        // Upload dataset
+        // datasetuploaderContract.uploadDatasetToNewRole(datasetIdentifier,roleName, pointer, requestor,permissionName);
 
-        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, pointer, requestor);
+        emit uploadDatasetToNewRoleRequestApproved(datasetIdentifier, roleName, pointer, requestor, permissionName);
     }
 
-    function uploadDatasetToExistingRole(string memory datasetIdentifier, uint256 roleID, address requestor) public {
+    function uploadDatasetToExistingRole(string memory datasetIdentifier, uint256 roleID, address requestor, string memory permissionName) public {
         
         //This pointer is a simulation --> This by right links to external DB
         //  We are now simulating it by generating a random string of length 10
         string memory pointer = randomString(10);
 
-        // // Upload dataset
-        // datasetuploaderContract.uploadDatasetToExistingRole(datasetIdentifier, roleID, pointer, requestor);
+        // Upload dataset
+        // datasetuploaderContract.uploadDatasetToExistingRole(datasetIdentifier, roleID, pointer, requestor, permissionName); 
 
-        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, pointer, requestor);
+        emit uploadDatasetToExistingRoleRequestApproved(datasetIdentifier, roleID, pointer, requestor, permissionName);
     }
 
 

@@ -22,7 +22,7 @@ contract('IS4302 Project', function (accounts) {
 
     it("Acc1 upload a dataset to a new role", async () => {
         await assert.equal(0, await requestApprovalManagementInstance.getTotalNumberOfRequests());
-        await requestApprovalManagementInstance.uploadDatasetToNewRoleRequest("schema1.table1.column1", "role0" ,{ from: accounts[2] });
+        await requestApprovalManagementInstance.uploadDatasetToNewRoleRequest("schema1.table1.column1", "role0", "dataset1" ,{ from: accounts[2] });
         await assert.equal(1, await requestApprovalManagementInstance.getTotalNumberOfRequests());
         // Admin account approve request
         let requestApproved = await requestApprovalManagementInstance.approveRequest(0, { from: accounts[1] });
