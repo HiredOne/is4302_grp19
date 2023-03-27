@@ -20,11 +20,12 @@ contract Permission {
     }
 
     // For creating permissions
-    function createPermission(string memory name) public {
+    function createPermission(string memory name) public returns(uint256) {
         require(bytes(name).length != 0, "Name cannot be blank");
         userContract.adminOnly(msg.sender);
         permission memory perm = permission(name);
         permissionsCreated[numPermissions] = perm;
         numPermissions += 1;
+        return numPermissions;
     }
 }

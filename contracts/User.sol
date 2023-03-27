@@ -16,7 +16,7 @@ contract User {
     }
 
     constructor(string memory name) public {
-        createUser(name);
+        createAdmin(name);
     }
 
     // Created as a function instead of modifier so that other contracts can use
@@ -35,6 +35,22 @@ contract User {
 
         // Create User
         user memory newUser = user(name, adminState.notAdmin, 0);
+
+        // Add to mapping
+        usersCreated[msg.sender] = newUser;
+    }
+
+    // For creating new admins
+    function createAdmin(string memory name) internal {
+        // Prerequisite checks
+        require(bytes(name).length != 0, "Name cannot be blank");
+        require(
+            bytes(usersCreated[msg.sender].name).length == 0,
+            "User already has an account"
+        );
+
+        // Create User
+        user memory newUser = user(name, adminState.isAdmin, 0);
 
         // Add to mapping
         usersCreated[msg.sender] = newUser;

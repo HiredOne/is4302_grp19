@@ -28,11 +28,12 @@ contract Role {
     }
 
     // For creating roles
-    function createRole(string memory name) public {
+    function createRole(string memory name) public returns(uint256) {
         require(bytes(name).length != 0, "Name cannot be blank");
         role memory createdRole = role(name);
         rolesCreated[numRoles] = createdRole;
         numRoles += 1;
+        return numRoles;
     }
 
     // For role to inherit another role
