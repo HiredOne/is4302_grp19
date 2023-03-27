@@ -75,4 +75,13 @@ contract User {
     ) public adminOnly(msg.sender) {
         usersCreated[userID].tokenCount -= amt;
     }
+
+    // Getter Functions
+    function getTokenBalance(address user) public view returns (uint256) {
+        return usersCreated[user].tokenCount;
+    }
+
+    function checkAdmin(address user) public view returns (adminState) {
+        return usersCreated[user].admin;
+    }
 }
