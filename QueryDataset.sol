@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0;
-import "https://github.com/willitscale/solidity-util/lib/Strings.sol";
+import "./Strings.sol";
 import "./QueueSystem.sol";
 import "./Permission.sol";
 import "./User.sol";
@@ -46,12 +46,11 @@ contract QueryDataSet {
       queueSystemContract = queueSystemAddress;
    }
 
-   // function runQuery(string memory query, string memory datasetName, string memory data, uint256 numTokens) public returns (bool) {
-   function runQuery(string memory pointer, string memory query, uint256 new_id, string memory parent, uint256 numTokens) public returns (bool) {
+   function runQuery(string memory pointer, string memory query, uint256 new_id, string memory parent, uint256 numTokens, uint256 permissionId) public returns (bool) {
       address reqSender = msg.sender;
 
       //check user has access to dataset
-      if (checkAccessRights(reqSender)) {
+      if (checkAccessRights(reqSender,permissionId)) {
          // check user has enough tokens
          if (checkTokens(reqSender, numTokens)) {
             // check user's query is a valid SQL query
@@ -129,13 +128,12 @@ contract QueryDataSet {
 
    function checkTokens(address user, uint256 numTokens) private returns (bool) {
       //shouldnt there be a method for my contract to call instead of me trying to access the mapping directly like this?
-      return userContract.usersCreated[user].tokenCount >= numTokens;
+      return userContract.getTokenBalance(user) >= numTokens;
    }
 
-   function checkAccessRights(address user) private returns (bool) {
+   function checkAccessRights(address user, uint256 permissionId) private returns (bool) {
       //check if user has rights to dataset
-      // return permissionContract.checkAccessRights(user);
-      return true;
+      return permissionContract.checkUserPermission(user, permissionId);
    }
 
 
