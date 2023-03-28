@@ -1,12 +1,18 @@
 pragma solidity ^0.5.0;
 
 import "./Strings.sol";
-import "./Integers.sol";
+import "./User.sol";
+import "./Role.sol";
 
 contract Metadata {
     using Strings for string;
-    using Integers for uint;
+    User userContract;
+    Role roleContract;
 
+    constructor(User userAddress, Role roleAddress) public {
+        userContract = userAddress;
+        roleContract = roleAddress;
+    }
 
     struct metadata {
         string title;
@@ -50,7 +56,8 @@ contract Metadata {
     event tagAdded(string name);
 
     function addCategory(string memory category) public returns (uint256) {
-        //Make admin only checkAdmin(address)
+        //Admin only
+        require(userContract.checkAdmin(msg.sender) == userContract.adminState.isAdmin, "Admin only");
         numOfCategories++;
         catToID[category] = numOfCategories;
         idToCat[numOfCategories] = category;
@@ -58,7 +65,8 @@ contract Metadata {
     }
 
     function addTag(string memory tag) public returns (uint256) {
-        //Make admin only
+        //Admin only
+        require(userContract.checkAdmin(msg.sender) == userContract.adminState.isAdmin, "Admin only");
         numOfTags++;
         tagToID[tag] = numOfTags;
         idToTag[numOfTags] = tag;
@@ -78,8 +86,8 @@ contract Metadata {
     }
 
     //Overwrites current metadata for the dataset
-    function addMetadata(string memory name, string memory title, string memory desc, uint256 category, uint256 [] memory tags, string memory dateUpdated, string memory owner) public {
-        //Require permission
+    function addMetadata(string memory name, string memory title, string memory desc, uint256 category, uint256 [] memory tags, string memory dateUpdated, string memory owner, uint256 permissionID) public {
+        require(roleContract.checkUserPermission(msg.sender, permissionID), "Permission required to add metadata");
         require(category <= numOfCategories, "Invalid Category");
         bool isNew = false;
         if (nameToID[name] == 0) {
