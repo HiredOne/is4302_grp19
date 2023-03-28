@@ -141,7 +141,7 @@ contract('IS4302 Project', function (accounts) {
         await assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests());
         
         // Check that currently there are no users is added to (role1)
-        // await assert.equal(0, await roleInstance.numRolesGrantedToUser(accounts[2]));
+        await assert.equal(0, await roleInstance.numRolesGrantedToUser(accounts[2]));
         console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
         
         // Admin account approve request
@@ -150,8 +150,10 @@ contract('IS4302 Project', function (accounts) {
         // Check that request has been approved successfully
         truffleAssert.eventEmitted(requestApproved, "addUsersToRolesRequestApproved");
 
-        // // Check that currently both (acc2) is added to (role1)
-        // // await assert.equal(1, await roleInstance.numRolesGivenToPermission(accounts[2]));
+        // Check that currently both (acc2) is added to (role1)
+        
+        ///// Will uncomment the following line of code to perform checks ///////
+        // await assert.equal(1, await roleInstance.numRolesGivenToPermission(accounts[2]));
         console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
     });
  
