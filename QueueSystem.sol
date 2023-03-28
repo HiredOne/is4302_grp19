@@ -18,6 +18,9 @@ contract QueueSystem {
     // will be admin when deployed
     address owner;   
 
+    // number of querys every in queue (incl deleted ones) to prevent Overridding when popped
+    uint256 numQueue = 0; 
+
     DataLineage DLContract;
     User UserContract;
 
@@ -30,7 +33,6 @@ contract QueueSystem {
     }
 
     struct Request {
-        uint256 id; // queueID
         string new_id; // dataset ID
         uint256 pointer;
         string query;
@@ -40,6 +42,7 @@ contract QueueSystem {
         bool isPermChange;
     }
 
+    // key will be the unique Node ID
     mapping(uint256 => Request) queryIDtoRequest;
 
     // only the admin can run the functions
@@ -53,13 +56,13 @@ contract QueueSystem {
     // number of tokens will be manually inputted by user (msg.value)
     // note: no way to obtain position in queue because heap is unsorted
     function createRequestEnqueue(string memory _new_id, uint256 _pointer, string memory _query, string memory _parent, uint256 _numTokens, address _reqSender, bool _isPermChange) public ownerOnly() {
-        uint256 numberInQueue = getQueueLength();
-        Request memory request = Request(numberInQueue, _new_id,_pointer, _query, _parent, _numTokens, _reqSender, _isPermChange);
+        // queue insertion returns a node
+        uint256 numberInQueue = PQdata.insert(_numTokens).id; 
+        Request memory request = Request(_new_id,_pointer, _query, _parent, _numTokens, _reqSender, _isPermChange);
 
+        // key: nodeID, value: request
         queryIDtoRequest[numberInQueue] = request;
         
-        PQdata.insert(_numTokens); 
-
         // take payment from user -- checking that token balance is valid done in QueryDataset
         acceptPayment(_reqSender, _numTokens);
     }  
@@ -76,19 +79,14 @@ contract QueueSystem {
         uint256 payment = queryIDtoRequest[requestId].numTokens;
         UserContract.giveTokens(reciepient, payment);
 
-        // remove from Queue
+        // remove from mapping
         deleteRecords(requestId);
         
     }
 
     // Queue Functions
-    // insert (actually a helper function, will be called in createRequest())
-    function insert(uint256 priority) public {
-        PQdata.insert(priority);
-    }
-
     function withdraw(uint requestId) public {
-        require(queryIDtoRequest[requestId].id != 0, "Query does not exist");
+        require(keccak256(abi.encodePacked(queryIDtoRequest[requestId].new_id)) != keccak256(abi.encodePacked("")), "Query does not exist");
         // remove from queue
         PQdata.extractById(requestId);
         // return tokens to user and delete from Queue memory
@@ -96,10 +94,8 @@ contract QueueSystem {
     }
 
     // PQ will be run manually -- every pop will be clicked by the admin to release the next task
-    // assuming only one running thread, only one query (from either queue/ heap) will run at a time
     // require only admin can pop
     function pop() public ownerOnly() {
-
         uint256 popped = PQdata.extractMax().id ; 
         Request memory request = queryIDtoRequest[popped];
 
@@ -122,6 +118,5 @@ contract QueueSystem {
     // delete from all mappings once request is passed (if permentant change)
     function deleteRecords(uint256 requestId) public {
         delete queryIDtoRequest[requestId];
-
     }
 }
