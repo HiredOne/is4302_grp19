@@ -26,6 +26,10 @@ contract Permission {
         permission memory perm = permission(name);
         permissionsCreated[numPermissions] = perm;
         numPermissions += 1;
+        return numPermissions - 1; // in order to return the id of the created permission
+    }
+
+    function getNumPermissions() public view returns(uint256) {
         return numPermissions;
     }
 }

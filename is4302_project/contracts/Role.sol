@@ -27,13 +27,14 @@ contract Role {
         _;
     }
 
+
     // For creating roles
     function createRole(string memory name) public returns(uint256) {
         require(bytes(name).length != 0, "Name cannot be blank");
         role memory createdRole = role(name);
         rolesCreated[numRoles] = createdRole;
         numRoles += 1;
-        return numRoles;
+        return numRoles - 1; // in order to return the id of the created rolecheckUserPermission
     }
 
     // For role to inherit another role
@@ -113,6 +114,20 @@ contract Role {
         }
         return false;
     }
+
+
+    function getNumRoles() public view returns(uint256) {
+        return numRoles;
+    }
+
+    function numRolesGivenToPermission(uint256 permissionID) public view returns(uint256) {
+        return rolesGivenPermission[permissionID].length;
+    }
+
+    function numRolesGrantedToUser(address userID) public view returns(uint256) {
+        return rolesGrantedToUser[userID].length;
+    }
+    
 
     // Getter Functions
     // Get roles that are given this particular permission

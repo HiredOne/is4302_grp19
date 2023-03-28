@@ -69,15 +69,91 @@ contract('IS4302 Project', function (accounts) {
         // Permission ID: 0
         await requestApprovalManagementInstance.uploadDatasetToNewRoleRequest("schema0.table0.column0", "role0", "permission0", 0 ,{ from: accounts[2] });
         await assert.equal(1, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        
+        // Check that currently have no roles and permissions created yet
+        await assert.equal(0, await roleInstance.getNumRoles());
+        await assert.equal(0, await permissionInstance.getNumPermissions());
+        
         // Admin account approve request
         let requestApproved = await requestApprovalManagementInstance.approveRequest(0, { from: accounts[1] });
 
-        // Check if new role is created and new permissions is created
-
+        // Check that request has been approved successfully
         truffleAssert.eventEmitted(requestApproved, "uploadDatasetToNewRoleRequestApproved");
+
+        // Check if new role is created and new permissions is created
+        await assert.equal(1, await roleInstance.getNumRoles());
+        await assert.equal(1, await permissionInstance.getNumPermissions());
     });
 
+    // role0 created together with a new dataset (new permissions)
 
+    it("Submit request to create a new role (role1)", async () => {
+        //Create request to upload dataset to new role
+        await assert.equal(1, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        // Role Name: role1
+        await requestApprovalManagementInstance.createNewRoleRequest("role1",{ from: accounts[2] });
+        await assert.equal(2, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        
+        // Check that currently have only 1 role that was previously created
+        await assert.equal(1, await roleInstance.getNumRoles());
+        
+        // Admin account approve request
+        let requestApproved = await requestApprovalManagementInstance.approveRequest(1, { from: accounts[1] });
+
+        // Check that request has been approved successfully
+        truffleAssert.eventEmitted(requestApproved, "createNewRoleRequestApproved");
+
+        // Check if new role is created 
+        await assert.equal(2, await roleInstance.getNumRoles());
+    });
+
+    // role1 created
+
+    it("Submit request to add permission0 to role1", async () => {
+        //Create request to upload dataset to new role
+        await assert.equal(2, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        // Permission ID: 0
+        // Role ID: 1
+        await requestApprovalManagementInstance.addExistingDatasetToRoleRequest(0, 1,{ from: accounts[1] });
+        await assert.equal(3, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        
+        // Check that currently only (role0) is given permission to (permission0)
+        await assert.equal(1, await roleInstance.numRolesGivenToPermission(0));
+        
+        // Admin account approve request
+        let requestApproved = await requestApprovalManagementInstance.approveRequest(2, { from: accounts[1] });
+
+        // Check that request has been approved successfully
+        truffleAssert.eventEmitted(requestApproved, "addExistingDatasetToRolesRequestApproved");
+
+        // Check that currently both (role0) and (role1) is given permission to (permission0)
+        await assert.equal(2, await roleInstance.numRolesGivenToPermission(0));
+    });
+
+    // (permission0) added to (role1)
+
+    it("Add acc2 to role1", async () => {
+        //Create request to upload dataset to new role
+        await assert.equal(3, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        // User address: accounts[2]
+        // Role ID: 1
+        await requestApprovalManagementInstance.addUsersToRoleRequest(accounts[2], 1,{ from: accounts[1] });
+        await assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests());
+        
+        // Check that currently there are no users is added to (role1)
+        // await assert.equal(0, await roleInstance.numRolesGrantedToUser(accounts[2]));
+        console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
+        
+        // Admin account approve request
+        let requestApproved = await requestApprovalManagementInstance.approveRequest(3, { from: accounts[1] });
+
+        // Check that request has been approved successfully
+        truffleAssert.eventEmitted(requestApproved, "addUsersToRolesRequestApproved");
+
+        // // Check that currently both (acc2) is added to (role1)
+        // // await assert.equal(1, await roleInstance.numRolesGivenToPermission(accounts[2]));
+        console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
+    });
  
   
 
