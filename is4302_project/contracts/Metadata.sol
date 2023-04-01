@@ -8,10 +8,13 @@ contract Metadata {
     using Strings for string;
     User userContract;
     Role roleContract;
+    address public contractDeployer;
+    uint8 tokenAmt = 1;
 
     constructor(User userAddress, Role roleAddress) public {
         userContract = userAddress;
         roleContract = roleAddress;
+        contractDeployer =  msg.sender;
     }
 
     struct metadata {
@@ -25,9 +28,9 @@ contract Metadata {
     uint256 numOfDatasets = 0;
     uint256 numOfCategories = 0;
     uint256 numOfTags = 0;
-    //maps dataset name to metadata
+    // Maps dataset name to metadata
     mapping(string => metadata) metadatas;
-    //maps name to id
+    // Maps name to id
     mapping(string => uint256) nameToID;
     //maps id to name
     mapping(uint256 => string) idToName;
@@ -35,19 +38,19 @@ contract Metadata {
     mapping(string => uint256) catToID;
     //maps category to name
     mapping(uint256 => string) idToCat;
-    //maps tag to id
+    // Maps tag to id
     mapping(string => uint256) tagToID;
     //maps id to tag
     mapping(uint256 => string) idToTag;
-    //Maps by category only
+    // Maps by category only
     mapping(uint256 => uint256 []) catList;
-    //Maps by tag only
+    // Maps by tag only
     mapping(uint256 => uint256 []) tagList;
-    //Maps by category then tag
+    // Maps by category then tag
     mapping(uint256 => mapping(uint256 => uint256 [])) searchList;
-    //Mapping of category/tag/both to dataset id to index
+    // Mapping of category/tag/both to dataset id to index
     mapping(string => mapping(uint256 => uint256)) indexes;
-    //mapping for search functions
+    // Mapping for search functions
     mapping(uint8 => uint256 []) searchResults;
 
     event metadataAdded(string name, string title, string desc, uint256 category, uint256 [] tags, string dateUpdated, string owner);
@@ -56,21 +59,23 @@ contract Metadata {
     event tagAdded(string name);
 
     function addCategory(string memory category) public returns (uint256) {
-        //Admin only
+        // Admin only
         require(userContract.checkAdmin(msg.sender) == User.adminState.isAdmin, "Admin only");
         numOfCategories++;
         catToID[category] = numOfCategories;
         idToCat[numOfCategories] = category;
         emit categoryAdded(category);
+        return numOfCategories;
     }
 
     function addTag(string memory tag) public returns (uint256) {
-        //Admin only
+        // Admin only
         require(userContract.checkAdmin(msg.sender) == User.adminState.isAdmin, "Admin only");
         numOfTags++;
         tagToID[tag] = numOfTags;
         idToTag[numOfTags] = tag;
         emit tagAdded(tag);
+        return numOfTags;
     }
 
     function getCategoryID(string memory category) public view returns (uint256) {
@@ -85,10 +90,11 @@ contract Metadata {
         return idToName[id];
     }
 
-    //Overwrites current metadata for the dataset
+    // Overwrites current metadata for the dataset
     function addMetadata(string memory name, string memory title, string memory desc, uint256 category, uint256 [] memory tags, string memory dateUpdated, string memory owner, uint256 permissionID) public {
         require(roleContract.checkUserPermission(msg.sender, permissionID), "Permission required to add metadata");
         require(category <= numOfCategories, "Invalid Category");
+        emit tagAdded("ran1");
         bool isNew = false;
         if (nameToID[name] == 0) {
             numOfDatasets++;
@@ -96,25 +102,29 @@ contract Metadata {
             nameToID[name] = numOfDatasets;
             isNew = true;
         }
+        emit tagAdded("ran2");
         metadata memory newMetadata = metadata(title, desc, category, tags, dateUpdated, owner);
         metadatas[name] = newMetadata;
         uint256 id = nameToID[name];
         uint256 index;
         string memory cat = idToCat[category];
+        emit tagAdded("ran3");
         if (!isNew) {
-            //0 means deleted, index starts from 1 so index - 1 is the actual position
+            // 0 means deleted, index starts from 1 so index - 1 is the actual position
             index = indexes[cat][id];
             catList[category][index - 1] = 0;
         }
+        emit tagAdded("ran4");
         catList[category].push(id);
         index = catList[category].length;
         indexes[cat][id] = index;
+        emit tagAdded("ran5");
         if (tags.length > 0) {
             for (uint8 i = 0; i < tags.length; i++) {
                         uint256 t = tags[i];
                         string memory tagStr = idToTag[t];
                         if (!isNew) {
-                            //0 means deleted, index starts from 1 so index - 1 is the actual position
+                            // 0 means deleted, index starts from 1 so index - 1 is the actual position
                             index = indexes[tagStr][id];
                             tagList[t][index - 1] = 0;
                             index = indexes[cat.concat(tagStr)][id];
@@ -127,12 +137,16 @@ contract Metadata {
                         index = searchList[category][t].length;
                         indexes[cat.concat(tagStr)][id] = index;
             }
+            emit tagAdded("ran6");
         }
+        emit tagAdded("ran7");
+        userContract.giveTokens(msg.sender, tokenAmt);
+        emit tagAdded("ran8");
         emit metadataAdded(name, title, desc, category, tags, dateUpdated, owner);
     }
 
     function getMetadata(string memory name) public view returns (string memory) {
-        //print metadata
+        // Print metadata
         metadata memory md = metadatas[name];
         string memory toReturn = "";
         toReturn = toReturn.concat("Title: ").concat(md.title).concat("; ");
@@ -149,7 +163,7 @@ contract Metadata {
         return toReturn;
     }
 
-    //Search function for metadata, category = 0 means search for tag only.
+    // Search function for metadata, category = 0 means search for tag only.
     function searchByTag(uint256 category, uint256 [] memory tags) public returns (uint256 [] memory) {
         require(category <= numOfCategories, "Invalid Category");
         require(tags.length > 0, "At least one tag is needed to search");
@@ -173,7 +187,7 @@ contract Metadata {
         return searchResults[0];
     }
 
-    //search by category only
+    // Search by category only
     function searchCat(uint256 category) public returns (uint256 [] memory) {
         require(category > 0, "Invalid Category");
         require(category <= numOfCategories, "Invalid Category");
@@ -181,4 +195,20 @@ contract Metadata {
         return catList[category];
     }
 
+    // Extra Getters
+    
+    // Get number of datasets recorded
+    function getNumDSetsCreated() public view returns (uint256) {
+        return numOfDatasets;
+    }
+    
+    // Get number of categories created
+    function getNumCatsCreated() public view returns (uint256) {
+        return numOfCategories;
+    }
+
+    // Get number of tags created
+    function getNumTagsCreated() public view returns (uint256) {
+        return numOfTags;
+    }
 }

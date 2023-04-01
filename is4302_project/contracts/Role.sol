@@ -49,7 +49,7 @@ contract Role {
     // For assigning permissions to a role
     function assignPermission(uint256 roleID, uint256 permission) validRole(roleID) public {
         // Check that permission has not already been assigned
-        require(rolesCreated[roleID].assignedPermissions[roleID] == 0, "Permission already assigned to this role");
+        require(rolesCreated[roleID].assignedPermissions[permission] == 0, "Permission already assigned to this role");
         userContract.adminOnly(msg.sender);
         permContract.validPermission(permission);
         
@@ -60,7 +60,7 @@ contract Role {
     // For removing permissions from a role
     function removePermission(uint256 roleID, uint256 permission) validRole(roleID) public {
         // Check that permission has already been assigned
-        require(rolesCreated[roleID].assignedPermissions[roleID] == 1, "Role does not have this permission yet");
+        require(rolesCreated[roleID].assignedPermissions[permission] == 1, "Role does not have this permission yet");
         userContract.adminOnly(msg.sender);
         permContract.validPermission(permission);
 
@@ -80,7 +80,7 @@ contract Role {
         require(rolesCreated[roleID].assignedUsers[userID] == 0, "Role has already been assigned");
         userContract.adminOnly(msg.sender);
 
-        rolesGrantedToUser[userID][roleID] = 1; // Update rolesGrantedToUser
+        rolesGrantedToUser[userID].push(roleID); // Update rolesGrantedToUser
         rolesCreated[roleID].assignedUsers[userID] = 1; // Assign role
     }
 
