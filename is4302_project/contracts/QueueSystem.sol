@@ -42,20 +42,23 @@ contract QueueSystem {
         bool isPermChange;
     }
 
-    // key will be the unique Node ID
+    // Kwy will be the unique Node ID
     mapping(uint256 => Request) queryIDtoRequest;
 
+    event queryExecuted(string query);
+
     // only the admin can run the functions
-    modifier ownerOnly() {
-        require(owner == msg.sender);
-        _;
-    }
+    // modifier ownerOnly() {
+    //     require(owner == msg.sender);
+    //     _;
+    // }
 
     // main functions      
     // will be called by QueryDataset after validation
     // number of tokens will be manually inputted by user (msg.value)
     // note: no way to obtain position in queue because heap is unsorted
-    function createRequestEnqueue(string memory _new_id, string memory _pointer, string memory _query, string memory _parent, uint256 _numTokens, address _reqSender, bool _isPermChange) public ownerOnly() {
+    function createRequestEnqueue(string memory _new_id, string memory _pointer, string memory _query, string memory _parent, uint256 _numTokens, address _reqSender, bool _isPermChange) public {
+        UserContract.adminOnly(msg.sender);
         // queue insertion returns a node
         uint256 numberInQueue = PQdata.insert(_numTokens).id; 
         Request memory request = Request(_new_id,_pointer, _query, _parent, _numTokens, _reqSender, _isPermChange);
@@ -95,7 +98,8 @@ contract QueueSystem {
 
     // PQ will be run manually -- every pop will be clicked by the admin to release the next task
     // require only admin can pop
-    function pop() public ownerOnly() {
+    function pop() public {
+        UserContract.adminOnly(msg.sender);
         uint256 popped = PQdata.extractMax().id ; 
         Request memory request = queryIDtoRequest[popped];
 

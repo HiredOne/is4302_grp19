@@ -5,7 +5,7 @@ import "./Permission.sol";
 import "./User.sol";
 import "./Role.sol";
 
-contract QueryDataSet {
+contract QueryDataset {
    using Strings for string;
 
    struct errorLog {
@@ -45,9 +45,8 @@ contract QueryDataSet {
 
    function runQuery(string memory pointer, string memory query, string memory new_id, string memory parent, uint256 numTokens, uint256 permissionId) public returns (bool) {
       address reqSender = msg.sender;
-
-      //check user has access to dataset
-      if (checkAccessRights(reqSender,permissionId)) {
+      // check user hsas access to dataset
+      if (checkAccessRights(reqSender, permissionId)) {
          // check user has enough tokens
          if (checkTokens(reqSender, numTokens)) {
             // check user's query is a valid SQL query
@@ -66,7 +65,6 @@ contract QueryDataSet {
       } else {
          createErrorLog(reqSender,"User has no access rights to this dataset", pointer, "No Access");
       }
-
       return true;
    }
 
@@ -121,7 +119,7 @@ contract QueryDataSet {
             hasPassed = true;
             isPermanentChange = true;         
          }      
-      } 
+      }
    }
 
    function checkTokens(address user, uint256 numTokens) private view returns (bool) {
@@ -130,13 +128,13 @@ contract QueryDataSet {
    }
 
    function checkAccessRights(address user, uint256 permissionId) private view returns (bool) {
-      //check if user has rights to dataset
+      // check if user has rights to dataset
       return roleContract.checkUserPermission(user, permissionId);
    }
 
 
 
-    function createErrorLog(address requestSender, string memory errorMsg, string memory datasetName, string memory errorType) public {
+   function createErrorLog(address requestSender, string memory errorMsg, string memory datasetName, string memory errorType) public {
       errorLog memory newErrorLog = errorLog(currentErrorLogIdCount, requestSender, errorMsg, datasetName, block.timestamp, false);
       listOfErrorLogs[currentErrorLogIdCount] = newErrorLog;
       emit createdErrorLog(currentErrorLogIdCount, errorType);

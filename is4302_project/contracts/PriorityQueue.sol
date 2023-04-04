@@ -13,12 +13,12 @@ library PriorityQueue{ // max-heap
   }
 
   // Each node will be a Request
-  struct  Node {
+  struct Node {
     uint256 id; //use with another mapping to store arbitrary object types
     uint256 priority;
   }
 
-  //call init before anything else
+  // Call init before anything else
   function init(Data storage self) internal{
     if(self.nodes.length == 0) self.nodes.push(Node(0,0));
   }
@@ -38,13 +38,13 @@ library PriorityQueue{ // max-heap
     return _extract(self, self.indices[id]);
   }
 
-  //view
+  // view
   function dump(Data storage self) internal view returns(Node[] memory){
   //note: Empty set will return `[Node(0,0)]`. uninitialized will return `[]`.
     return self.nodes;
   }
   function getById(Data storage self, uint256 id) internal view returns(Node memory){
-    return getByIndex(self, self.indices[id]);//test that all these return the emptyNode
+    return getByIndex(self, self.indices[id]); //test that all these return the emptyNode
   }
   function getByIndex(Data storage self, uint i) internal view returns(Node memory){
     return self.nodes.length > i ? self.nodes[i] : Node(0,0);
@@ -57,7 +57,7 @@ library PriorityQueue{ // max-heap
   }
   function isNode(Node memory n) internal pure returns(bool){ return n.id > 0; }
 
-  //private
+  // Private
   function _extract(Data storage self, uint i) private returns(Node memory){//√
     if(self.nodes.length <= i || i <= 0){ return Node(0,0); }
 

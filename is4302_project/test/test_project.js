@@ -35,7 +35,7 @@ contract('IS4302 Project', function (accounts) {
 
     // During Deployment, 'DBAdmin' has been created --> accounts(0)
 
-    it("Create admin (acc1)", async () => {
+    it("1) Create admin (acc1)", async () => {
         // Check Create User
         assert.equal(1, await userInstance.getTotalNumberOfUsers(), "DBAdmin not created.");
         await userInstance.createUser("acc1" ,{ from: accounts[1] });
@@ -48,7 +48,7 @@ contract('IS4302 Project', function (accounts) {
 
     // acc1 created -> Admin --> accounts[1]
 
-    it("Create user (acc2)", async () => {
+    it("2) Create user (acc2)", async () => {
         // Check Create User
         await userInstance.createUser("acc2" ,{ from: accounts[2] });
         assert.equal(3, await userInstance.getTotalNumberOfUsers(), "Acc2 creation failed.");
@@ -59,7 +59,7 @@ contract('IS4302 Project', function (accounts) {
 
     // acc2 created -> User --> accounts[2]
 
-    it("acc2 upload a dataset to a new role (role 0)", async () => {
+    it("3) acc2 upload a dataset to a new role (role 0)", async () => {
         assert.equal(0, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Empty system has requests.");
         
         // Create request to upload dataset to new role
@@ -67,7 +67,7 @@ contract('IS4302 Project', function (accounts) {
         // Role Name: role0
         // Permission Name: permission0
         // Permission ID: 0
-        await requestApprovalManagementInstance.uploadDatasetToNewRoleRequest("schema0.table0.column0", "role0", "permission0", 0 ,{ from: accounts[2] });
+        await requestApprovalManagementInstance.uploadDatasetToNewRoleRequest("schema0.table0", "role0", "permission0",{ from: accounts[2] });
         assert.equal(1, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Request not created successfully.");
         
         // Check that currently have no roles and permissions created yet
@@ -88,7 +88,7 @@ contract('IS4302 Project', function (accounts) {
 
     // role0 created together with a new dataset (new permissions)
 
-    it("Submit request to create a new role (role1)", async () => {
+    it("4) Submit request to create a new role (role1)", async () => {
         // Create request to upload dataset to new role
         // Role Name: role1
         await requestApprovalManagementInstance.createNewRoleRequest("role1",{ from: accounts[2] });
@@ -109,7 +109,7 @@ contract('IS4302 Project', function (accounts) {
 
     // role1 created
 
-    it("Submit request to add permission0 to role1", async () => {   
+    it("5) Submit request to add permission0 to role1", async () => {   
         // Create request to upload dataset to new role
         // Permission ID: 0
         // Role ID: 1
@@ -120,7 +120,7 @@ contract('IS4302 Project', function (accounts) {
         assert.equal(1, await roleInstance.numRolesGivenToPermission(0), "More than 1 role has access to permission0.");
         
         // Admin account approve request
-        let requestApproved = await requestApprovalManagementInstance.approveRequest(2, { from: accounts[1] });
+        let requestApproved = await requestApprovalManagementInstance.approveRequest(2, { from: accounts[0] });
 
         // Check that request has been approved successfully
         truffleAssert.eventEmitted(requestApproved, "addExistingDatasetToRolesRequestApproved", null, message='Request to add permission0 to role1 not approved.');
@@ -131,27 +131,27 @@ contract('IS4302 Project', function (accounts) {
 
     // (permission0) added to (role1)
 
-    it("Add acc2 to role1", async () => {
-        // Create request to upload dataset to new role
+    it("6) Add acc1 to role1", async () => {
+        // Create request to add acc2 to role1
         // User address: accounts[2]
         // Role ID: 1
-        await requestApprovalManagementInstance.addUsersToRoleRequest(accounts[2], 1,{ from: accounts[1] });
-        assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Request to add acc2 to role1 not successfully created.");
+        await requestApprovalManagementInstance.addUsersToRoleRequest(accounts[1], 1,{ from: accounts[1] });
+        assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Request to add acc1 to role1 not successfully created.");
         
         // Check that currently there are no users is added to (role1)
-        assert.equal(0, await roleInstance.numRolesGrantedToUser(accounts[2]), "role1 prematurely added to acc2.");
+        assert.equal(0, await roleInstance.numRolesGrantedToUser(accounts[1]), "role1 prematurely added to acc1.");
         
         // Admin account approve request
-        let requestApproved = await requestApprovalManagementInstance.approveRequest(3, { from: accounts[1] });
+        let requestApproved = await requestApprovalManagementInstance.approveRequest(3, { from: accounts[0] });
         // Check that request has been approved successfully
-        truffleAssert.eventEmitted(requestApproved, "addUsersToRolesRequestApproved", null, message='Request to add acc2 to role1 not approved.');
+        truffleAssert.eventEmitted(requestApproved, "addUsersToRolesRequestApproved", null, message='Request to add acc1 to role1 not approved.');
         // Check that currently both (acc2) is added to (role1)
         
-        assert.equal(1, await roleInstance.numRolesGrantedToUser(accounts[2]), "role1 not added to acc2.");
+        assert.equal(1, await roleInstance.numRolesGrantedToUser(accounts[1]), "role1 not added to acc2.");
         // console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
     });
 
-    it("Acc1 add metadata for permission0", async () => {
+    it("7) Acc1 add metadata for permission0", async () => {
         // Verify Metadata system is empty
         assert.equal(0, await metadataInstance.getNumDSetsCreated(), "Empty system has dataset records.");
         assert.equal(0, await metadataInstance.getNumCatsCreated(), "Empty system has categories created.");
@@ -160,25 +160,49 @@ contract('IS4302 Project', function (accounts) {
         // Create category and tag (admin only)
         // Category Name: "test-cat"
         // Tag Name: "test-tag"
-        let catID = await metadataInstance.addCategory("test-cat", { from: accounts[1] });
-        let tagID = await metadataInstance.addTag("test-tag", { from: accounts[1] });
-        var tags = [];
-        tags.push(tagID);
+        // We use .call to get the results of these function calls first for local use
+        let catID = await metadataInstance.addCategory.call("test-cat", { from: accounts[1] }); 
+        let tagID = await metadataInstance.addTag.call("test-tag", { from: accounts[1] }); 
+        
+        // Then we run the function normally so that the outcome is global
+        await metadataInstance.addCategory("test-cat", { from: accounts[1] }); 
+        await metadataInstance.addTag("test-tag", { from: accounts[1] });
+        var tags = [tagID];
         var ts = new Date().getTime();
         assert.equal(1, await metadataInstance.getNumCatsCreated(), "test-cat creation failed.");
         assert.equal(1, await metadataInstance.getNumTagsCreated(), "test-tag creation failed.");
-
+        
         // Add metadata
-        await metadataInstance.addMetadata("schema0.table0.column0", "test-title", "test-desc", catID, tags, ts.toString(), "acc1", 0, { from: accounts[1] });
-        let metadata = await metadataInstance.getMetadata("schema0.table0.column0");
+        await metadataInstance.addMetadata("schema0.table0", "test-title", "test-desc", catID, tags, ts.toString(), "acc1", 0, { from: accounts[1] });
+        let metadata = await metadataInstance.getMetadata("schema0.table0");
         assert.notEqual('', metadata, "Metadata upload failed");
-
-        assert.equal(1, await userInstance.getTokenBalance(account[1]), "Tokens not issued for update");
+        assert.equal(1, await userInstance.getTokenBalance(accounts[1]), "Tokens not issued for update");
 
     });
-  
 
+    it("8) Submitting non-perm Query", async () => {
+        // Create query, then submit for verification
+        var query = "SELECT column0 FROM schema0.table0";
+        var datasetName = "schema0.table0";
+        // We use .call to get the results of these function calls first for local use
+        var outcome = await queryDatasetInstance.runQuery.call(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
+        await queryDatasetInstance.runQuery(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
+        assert.equal(true, outcome, 'Query verification failed.');
+        assert.equal(1, await queueSystemInstance.getQueueLength(), 'Query not enqueued.');
+    });
 
-   
+    it("9) Test priority", async () =>{
+        // To test priority, we will first introduce 2 queries into the queue, prioritise the third and check that it comes in front
+        // Create query, then submit for verification
+        var query = "SELECT column1 FROM schema0.table0";
+        var query2 = "SELECT column1 FROM schema0.table0"; // This query we prioritise
+        var datasetName = "schema0.table0";
+        await queryDatasetInstance.runQuery(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] });
+        assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
+        await queryDatasetInstance.runQuery(datasetName, query2, "0", "nil", 1, 0, { from: accounts[1] }); // Here we use 1 token to prioritise the third query
+        
+
+        
+    });
 
 });
