@@ -167,8 +167,8 @@ contract('IS4302 Project', function (accounts) {
         // Then we run the function normally so that the outcome is global
         await metadataInstance.addCategory("test-cat", { from: accounts[1] }); 
         await metadataInstance.addTag("test-tag", { from: accounts[1] });
-        var tags = [tagID];
-        var ts = new Date().getTime();
+        let tags = [tagID];
+        let ts = new Date().getTime();
         assert.equal(1, await metadataInstance.getNumCatsCreated(), "test-cat creation failed.");
         assert.equal(1, await metadataInstance.getNumTagsCreated(), "test-tag creation failed.");
         
@@ -182,26 +182,35 @@ contract('IS4302 Project', function (accounts) {
 
     it("8) Submitting non-perm Query", async () => {
         // Create query, then submit for verification
-        var query = "SELECT column0 FROM schema0.table0";
-        var datasetName = "schema0.table0";
+        let query = "SELECT column0 FROM schema0.table0";
+        let datasetName = "schema0.table0";
         // We use .call to get the results of these function calls first for local use
-        var outcome = await queryDatasetInstance.runQuery.call(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
+        let outcome = await queryDatasetInstance.runQuery.call(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
         await queryDatasetInstance.runQuery(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
         assert.equal(true, outcome, 'Query verification failed.');
         assert.equal(1, await queueSystemInstance.getQueueLength(), 'Query not enqueued.');
     });
 
     it("9) Test priority", async () =>{
-        // To test priority, we will first introduce 2 queries into the queue, prioritise the third and check that it comes in front
-        // Create query, then submit for verification
-        var query = "SELECT column1 FROM schema0.table0";
-        var query2 = "SELECT column1 FROM schema0.table0"; // This query we prioritise
-        var datasetName = "schema0.table0";
-        await queryDatasetInstance.runQuery(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] });
-        assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
-        await queryDatasetInstance.runQuery(datasetName, query2, "0", "nil", 1, 0, { from: accounts[1] }); // Here we use 1 token to prioritise the third query
+        // To test priority, we will create a second query with priority 0 (0 tokens)
+        // Then we will create a third query with priority 1 (1 token)
+        // Note that query3 should come to the head of the queue 
+        // because the first 2 queries have a priority of 0. 
         
+        // Create query, then submit for verification
+        let query2 = "SELECT column1 FROM schema0.table0";
+        let query3 = "SELECT column2 FROM schema0.table0"; // This query we prioritise
+        let datasetName = "schema0.table0";
+        await queryDatasetInstance.runQuery(datasetName, query2, "0", "nil", 0, 0, { from: accounts[1] });
+        assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
+        await queryDatasetInstance.runQuery(datasetName, query3, "0", "nil", 1, 0, { from: accounts[1] }); // Here we use 1 token to prioritise the third query
+        assert.equal(3, await queueSystemInstance.getQueueLength(), 'Third Query not enqueued.');
+        assert.equal(0, await userInstance.getTokenBalance(accounts[1]), 'Tokens not deducted.'); // Verify deduction of tokens after use
 
+        let outcome = await queueSystemInstance.pop();
+        truffleAssert.eventEmitted(outcome, 'queryExecuted', {
+            param1 : "SELECT column2 FROM schema0.table0"
+        }, 'Query not prioritised');
         
     });
 

@@ -111,6 +111,7 @@ contract QueueSystem {
 
         // remove from Request mappings
         deleteRecords(popped);
+        emit queryExecuted(request.query);
     }
 
     // Getters
