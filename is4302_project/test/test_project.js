@@ -15,6 +15,7 @@ var PriorityQueue = artifacts.require("../contracts/PriorityQueue.sol");
 var QueueSystem = artifacts.require("../contracts/QueueSystem.sol");
 var QueryDataset = artifacts.require("../contracts/QueryDataset.sol");
 
+var ts = new Date().getTime(); // Fixing the timestamp for global use
 
 contract('IS4302 Project', function (accounts) {
     before(async () => {
@@ -131,9 +132,9 @@ contract('IS4302 Project', function (accounts) {
 
     // (permission0) added to (role1)
 
-    it("6) Add acc1 to role1", async () => {
-        // Create request to add acc2 to role1
-        // User address: accounts[2]
+    it("6) Add acc1 and acc2 to role1", async () => {
+        // Create request to add acc1 to role1
+        // User address: accounts[1]
         // Role ID: 1
         await requestApprovalManagementInstance.addUsersToRoleRequest(accounts[1], 1,{ from: accounts[1] });
         assert.equal(4, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Request to add acc1 to role1 not successfully created.");
@@ -145,10 +146,13 @@ contract('IS4302 Project', function (accounts) {
         let requestApproved = await requestApprovalManagementInstance.approveRequest(3, { from: accounts[0] });
         // Check that request has been approved successfully
         truffleAssert.eventEmitted(requestApproved, "addUsersToRolesRequestApproved", null, message='Request to add acc1 to role1 not approved.');
-        // Check that currently both (acc2) is added to (role1)
-        
+        // Check that currently both (acc1) is added to (role1)
         assert.equal(1, await roleInstance.numRolesGrantedToUser(accounts[1]), "role1 not added to acc2.");
-        // console.log(await roleInstance.numRolesGrantedToUser(accounts[2]));
+
+        await requestApprovalManagementInstance.addUsersToRoleRequest(accounts[2], 1,{ from: accounts[2] });
+        await requestApprovalManagementInstance.approveRequest(4, { from: accounts[0] });
+        assert.equal(1, await roleInstance.numRolesGrantedToUser(accounts[2]), "role1 not added to acc2.");
+
     });
 
     it("7) Acc1 add metadata for permission0", async () => {
@@ -160,7 +164,7 @@ contract('IS4302 Project', function (accounts) {
         // Create category and tag (admin only)
         // Category Name: "test-cat"
         // Tag Name: "test-tag"
-        // We use .call to get the results of these function calls first for local use
+        // We use .call to get the results of these calls first for local use
         let catID = await metadataInstance.addCategory.call("test-cat", { from: accounts[1] }); 
         let tagID = await metadataInstance.addTag.call("test-tag", { from: accounts[1] }); 
         
@@ -168,7 +172,6 @@ contract('IS4302 Project', function (accounts) {
         await metadataInstance.addCategory("test-cat", { from: accounts[1] }); 
         await metadataInstance.addTag("test-tag", { from: accounts[1] });
         let tags = [tagID];
-        let ts = new Date().getTime();
         assert.equal(1, await metadataInstance.getNumCatsCreated(), "test-cat creation failed.");
         assert.equal(1, await metadataInstance.getNumTagsCreated(), "test-tag creation failed.");
         
@@ -180,12 +183,12 @@ contract('IS4302 Project', function (accounts) {
 
     });
 
-    it("8) Submitting non-perm Query", async () => {
+    it("8) Submitting non-permanent Query", async () => {
         // Create query, then submit for verification
         let query = "SELECT column0 FROM schema0.table0";
         let datasetName = "schema0.table0";
-        // We use .call to get the results of these function calls first for local use
-        let outcome = await queryDatasetInstance.runQuery.call(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
+        // We use .call to get the results of these calls first for local use
+        let outcome = await queryDatasetInstance.runQuery.call(datasetName, query, datasetName, "nil", 0, 0, { from: accounts[1] })
         await queryDatasetInstance.runQuery(datasetName, query, "0", "nil", 0, 0, { from: accounts[1] })
         assert.equal(true, outcome, 'Query verification failed.');
         assert.equal(1, await queueSystemInstance.getQueueLength(), 'Query not enqueued.');
@@ -200,18 +203,56 @@ contract('IS4302 Project', function (accounts) {
         // Create query, then submit for verification
         let query2 = "SELECT column1 FROM schema0.table0";
         let query3 = "SELECT column2 FROM schema0.table0"; // This query we prioritise
-        let datasetName = "schema0.table0";
-        await queryDatasetInstance.runQuery(datasetName, query2, "0", "nil", 0, 0, { from: accounts[1] });
+        let datasetName1 = "schema0.table0";
+        await queryDatasetInstance.runQuery(datasetName1, query2, datasetName1, "nil", 0, 0, { from: accounts[1] });
         assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
-        await queryDatasetInstance.runQuery(datasetName, query3, "0", "nil", 1, 0, { from: accounts[1] }); // Here we use 1 token to prioritise the third query
+        await queryDatasetInstance.runQuery(datasetName1, query3, datasetName1, "nil", 1, 0, { from: accounts[1] }); // Here we use 1 token to prioritise the third query
         assert.equal(3, await queueSystemInstance.getQueueLength(), 'Third Query not enqueued.');
         assert.equal(0, await userInstance.getTokenBalance(accounts[1]), 'Tokens not deducted.'); // Verify deduction of tokens after use
 
-        let outcome = await queueSystemInstance.pop();
+        let outcome = await queueSystemInstance.pop(); // The first query should now be query 3.
         truffleAssert.eventEmitted(outcome, 'queryExecuted', {
-            param1 : "SELECT column2 FROM schema0.table0"
+            query : "SELECT column2 FROM schema0.table0"
         }, 'Query not prioritised');
-        
+        assert.equal(2, await queueSystemInstance.getQueueLength(), "Query not deleted after execution.");
     });
 
+    it("10) Submitting a permanent query", async () => {
+        let datasetName1 = "schema0.table0";
+        let permQuery = "DELETE FROM schema0.table0"; // Query that makes a permanent change to the system
+        await queryDatasetInstance.runQuery(datasetName1, permQuery, datasetName1, "nil", 1, 0, { from: accounts[2] }); // Here we use 1 token to prioritise the query
+        assert.equal(3, await queueSystemInstance.getQueueLength(), 'Permanent Query not enqueued.');
+        assert.equal(0, await userInstance.getTokenBalance(accounts[2]), 'Tokens not deducted.'); // Verify deduction of tokens after use
+        await queueSystemInstance.pop();
+        let lineage1 = "DELETE FROM schema0.table0; ";
+        assert.equal(lineage1, await dataLineageInstance.getLineage(datasetName1), "Incorrect data lineage returned for schema0.table0.");
+
+        // We'll add another query to show the full lineage if there is a child table
+        permQuery = "CREATE TABLE schema0.table1 AS SELECT * FROM schema0.table0"; // Query that makes a permanent change to the system
+        datasetName2 = "schema0.table1";
+        await queryDatasetInstance.runQuery(datasetName2, permQuery, datasetName2, datasetName1, 0, 0, { from: accounts[2] }); // Here we use 1 token to prioritise the query
+        
+        // As we are out of tokens, we have to empty the queue in order to get the permanent query to run
+        await queueSystemInstance.pop();
+        await queueSystemInstance.pop();
+        await queueSystemInstance.pop();
+        assert.equal("DELETE FROM schema0.table0; CREATE TABLE schema0.table1 AS SELECT * FROM schema0.table0; ", 
+        await dataLineageInstance.getLineage(datasetName2), "Incorrect data lineage returned for schema0.table1.");
+    });
+
+    it("11) Search metadata and show data lineage", async () => {
+        // To search, we will use the search functions in the metadata contract,
+        // then pass the results to data lineage in order to fetch the full lineage
+        let lineage1 = "DELETE FROM schema0.table0; ";
+        let metadata1 = "Title: test-title; Description: test-desc; Category: test-cat; Tags: test-tag,; Date Updated: ".concat(ts.toString()).concat("; Owner: acc1");
+        let catID = await metadataInstance.getCategoryID.call('test-cat');
+        let tagID = await metadataInstance.getTagID.call('test-tag');
+        const res = await metadataInstance.searchByTag.call(catID, [tagID]);
+        for (let i = 0; i < res.length; i++) {
+            ele = res[i];
+            let name = await metadataInstance.getMetadataName.call(ele);
+            assert.equal(lineage1, await dataLineageInstance.getLineage(name));
+            assert.equal(metadata1, await metadataInstance.getMetadata(name))
+        }
+    });
 });

@@ -26,7 +26,7 @@ contract DataLineage {
     //Call this for perm changes to datasets
     function changeExistingDataset(string memory new_id, string memory pointer, address requestor, string memory query, string memory parent) public {
         string memory _lineage = datasets[parent].lineage;
-        _lineage = _lineage.concat("; ").concat(query);
+        _lineage = _lineage.concat(query).concat("; ");
         dataset memory newDataset = dataset(new_id, pointer, requestor, query, _lineage, parent, "");
         datasets[new_id] = newDataset;
         emit addDataset(new_id);
@@ -40,7 +40,7 @@ contract DataLineage {
         emit addDataset(id);
     }
 
-    //Adds the children dataset to its parent's children list
+    // Adds the children dataset to its parent's children list
     function addChild(string memory parent, string memory child) internal {
         datasets[parent].children = datasets[parent].children.concat("; ").concat(child);
         emit addChildren(parent, child);

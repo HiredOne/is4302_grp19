@@ -191,7 +191,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 199,
-        "sourceUnit": 1493,
+        "sourceUnit": 1491,
         "src": "27:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -202,7 +202,7 @@
         "id": 3,
         "nodeType": "ImportDirective",
         "scope": 199,
-        "sourceUnit": 5039,
+        "sourceUnit": 5008,
         "src": "52:23:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -227,10 +227,10 @@
               "id": 4,
               "name": "Strings",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 5038,
+              "referencedDeclaration": 5007,
               "src": "115:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Strings_$5038",
+                "typeIdentifier": "t_contract$_Strings_$5007",
                 "typeString": "library Strings"
               }
             },
@@ -279,7 +279,7 @@
                 "name": "msg",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 5370,
+                "referencedDeclaration": 5339,
                 "src": "157:3:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_magic_message",
@@ -848,7 +848,7 @@
                             "lValueRequested": false,
                             "memberName": "concat",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 4420,
+                            "referencedDeclaration": 4389,
                             "src": "787:15:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_string_memory_ptr_$bound_to$_t_string_memory_ptr_$",
@@ -876,7 +876,7 @@
                         "lValueRequested": false,
                         "memberName": "concat",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 4420,
+                        "referencedDeclaration": 4389,
                         "src": "787:28:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_string_memory_ptr_$bound_to$_t_string_memory_ptr_$",
@@ -2085,7 +2085,7 @@
                             "lValueRequested": false,
                             "memberName": "concat",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 4420,
+                            "referencedDeclaration": 4389,
                             "src": "1515:32:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_string_memory_ptr_$bound_to$_t_string_memory_ptr_$",
@@ -2113,7 +2113,7 @@
                         "lValueRequested": false,
                         "memberName": "concat",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 4420,
+                        "referencedDeclaration": 4389,
                         "src": "1515:45:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_string_memory_ptr_$_t_string_memory_ptr_$returns$_t_string_memory_ptr_$bound_to$_t_string_memory_ptr_$",
@@ -2774,7 +2774,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 1493,
+          "SourceUnit": 1491,
           "absolutePath": "project:/contracts/Pointer.sol",
           "file": "./Pointer.sol",
           "scope": 199,
@@ -2789,7 +2789,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 5039,
+          "SourceUnit": 5008,
           "absolutePath": "project:/contracts/Strings.sol",
           "file": "./Strings.sol",
           "scope": 199,
@@ -2826,7 +2826,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "Strings",
-                  "referencedDeclaration": 5038,
+                  "referencedDeclaration": 5007,
                   "type": "library Strings"
                 },
                 "id": 4,
@@ -2886,7 +2886,7 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 5370,
+                      "referencedDeclaration": 5339,
                       "type": "msg",
                       "value": "msg"
                     },
@@ -3586,7 +3586,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "concat",
-                                  "referencedDeclaration": 4420,
+                                  "referencedDeclaration": 4389,
                                   "type": "function (string memory,string memory) pure returns (string memory)"
                                 },
                                 "children": [
@@ -3618,7 +3618,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "concat",
-                                          "referencedDeclaration": 4420,
+                                          "referencedDeclaration": 4389,
                                           "type": "function (string memory,string memory) pure returns (string memory)"
                                         },
                                         "children": [
@@ -4790,7 +4790,7 @@
                                   "isPure": false,
                                   "lValueRequested": false,
                                   "member_name": "concat",
-                                  "referencedDeclaration": 4420,
+                                  "referencedDeclaration": 4389,
                                   "type": "function (string memory,string memory) pure returns (string memory)"
                                 },
                                 "children": [
@@ -4822,7 +4822,7 @@
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "member_name": "concat",
-                                          "referencedDeclaration": 4420,
+                                          "referencedDeclaration": 4389,
                                           "type": "function (string memory,string memory) pure returns (string memory)"
                                         },
                                         "children": [
@@ -5545,12 +5545,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x1f1F61b8A0F2fE1890335856e7650e40744F7ff3",
-      "transactionHash": "0xd24b5f688d49fc80c47f01450d33a53d022098afea034c11ad7814ed37f734c1"
+      "address": "0xF16a56345e26AF0E9B4C645524aE4ae125E730DA",
+      "transactionHash": "0xb0aefb59e2611362d6616d083a8ef2384b98f169a01ca1963291021672fd2bed"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-04-04T07:19:50.018Z",
+  "updatedAt": "2023-04-05T04:58:40.268Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

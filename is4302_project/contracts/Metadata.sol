@@ -94,7 +94,6 @@ contract Metadata {
     function addMetadata(string memory name, string memory title, string memory desc, uint256 category, uint256 [] memory tags, string memory dateUpdated, string memory owner, uint256 permissionID) public {
         require(roleContract.checkUserPermission(msg.sender, permissionID), "Permission required to add metadata");
         require(category <= numOfCategories, "Invalid Category");
-        emit tagAdded("ran1");
         bool isNew = false;
         if (nameToID[name] == 0) {
             numOfDatasets++;
@@ -102,23 +101,19 @@ contract Metadata {
             nameToID[name] = numOfDatasets;
             isNew = true;
         }
-        emit tagAdded("ran2");
         metadata memory newMetadata = metadata(title, desc, category, tags, dateUpdated, owner);
         metadatas[name] = newMetadata;
         uint256 id = nameToID[name];
         uint256 index;
         string memory cat = idToCat[category];
-        emit tagAdded("ran3");
         if (!isNew) {
             // 0 means deleted, index starts from 1 so index - 1 is the actual position
             index = indexes[cat][id];
             catList[category][index - 1] = 0;
         }
-        emit tagAdded("ran4");
         catList[category].push(id);
         index = catList[category].length;
         indexes[cat][id] = index;
-        emit tagAdded("ran5");
         if (tags.length > 0) {
             for (uint8 i = 0; i < tags.length; i++) {
                         uint256 t = tags[i];
@@ -137,11 +132,8 @@ contract Metadata {
                         index = searchList[category][t].length;
                         indexes[cat.concat(tagStr)][id] = index;
             }
-            emit tagAdded("ran6");
         }
-        emit tagAdded("ran7");
         userContract.giveTokens(msg.sender, tokenAmt);
-        emit tagAdded("ran8");
         emit metadataAdded(name, title, desc, category, tags, dateUpdated, owner);
     }
 
