@@ -36,7 +36,17 @@ contract('IS4302 Project', function (accounts) {
 
     // During Deployment, 'DBAdmin' has been created --> accounts(0)
 
+
+
+
     it("1) Create admin (acc1)", async () => {
+
+        /*
+            a) Create admin (acc1)
+            b) Create user (acc1)
+            c) Give user admin rights
+        */
+
         // Check Create User
         assert.equal(1, await userInstance.getTotalNumberOfUsers(), "DBAdmin not created.");
         await userInstance.createUser("acc1" ,{ from: accounts[1] });
@@ -49,18 +59,22 @@ contract('IS4302 Project', function (accounts) {
 
     // acc1 created -> Admin --> accounts[1]
 
-    it("2) Create user (acc2)", async () => {
-        // Check Create User
-        await userInstance.createUser("acc2" ,{ from: accounts[2] });
-        assert.equal(3, await userInstance.getTotalNumberOfUsers(), "Acc2 creation failed.");
 
-        // Check that acc2 is normal user rights
-        assert.equal(false, await userInstance.checkIsAdmin(accounts[2]), "Acc2 is supposed to be a normal user.");       
-    });
 
-    // acc2 created -> User --> accounts[2]
 
-    it("3) acc2 upload a dataset to a new role (role 0)", async () => {
+
+    it("2) acc2 upload a dataset to a new role (role 0)", async () => {
+
+        /*
+            a) Submit new request to upload a dataset 
+            b) Approve request
+            c) Upload dataset
+            d) Record dataset upload in DataLineage
+            e) Create (permission0) for this dataset 
+            f) Create (role0) 
+            g) Assign (permission0) to (role0) 
+        */
+
         assert.equal(0, await requestApprovalManagementInstance.getTotalNumberOfRequests(), "Empty system has requests.");
         
         // Create request to upload dataset to new role
@@ -89,7 +103,44 @@ contract('IS4302 Project', function (accounts) {
 
     // role0 created together with a new dataset (new permissions)
 
-    it("4) Submit request to create a new role (role1)", async () => {
+
+
+
+
+
+
+    it("3) Create user (acc2)", async () => {
+
+        /*
+            b) Create user (acc2)
+        */
+
+        // Check Create User
+        await userInstance.createUser("acc2" ,{ from: accounts[2] });
+        assert.equal(3, await userInstance.getTotalNumberOfUsers(), "Acc2 creation failed.");
+
+        // Check that acc2 is normal user rights
+        assert.equal(false, await userInstance.checkIsAdmin(accounts[2]), "Acc2 is supposed to be a normal user.");       
+    });
+
+    // acc2 created -> User --> accounts[2]
+
+
+
+
+
+
+
+   
+
+    it("4) Create a new role (role1)", async () => {
+
+        /*
+            a) Submit request new request to create new role
+            b) Approve request
+            c) Create role (role1)
+        */
+
         // Create request to upload dataset to new role
         // Role Name: role1
         await requestApprovalManagementInstance.createNewRoleRequest("role1",{ from: accounts[2] });
@@ -110,7 +161,22 @@ contract('IS4302 Project', function (accounts) {
 
     // role1 created
 
-    it("5) Submit request to add permission0 to role1", async () => {   
+
+
+
+
+
+
+
+
+    it("5) Add permission0 to role1", async () => {   
+
+        /*
+            a) Submit request new request to add permission to role
+            b) Approve request
+            c) Assign (permission0) to (role1)
+        */
+
         // Create request to upload dataset to new role
         // Permission ID: 0
         // Role ID: 1
@@ -132,7 +198,22 @@ contract('IS4302 Project', function (accounts) {
 
     // (permission0) added to (role1)
 
+
+
+
+
+
+
+
+
     it("6) Add acc1 and acc2 to role1", async () => {
+
+        /*
+            a) Submit request new request to add user to role
+            b) Approve request
+            c) Assign role (role1) to user (acc2)
+        */
+
         // Create request to add acc1 to role1
         // User address: accounts[1]
         // Role ID: 1
@@ -154,6 +235,13 @@ contract('IS4302 Project', function (accounts) {
         assert.equal(1, await roleInstance.numRolesGrantedToUser(accounts[2]), "role1 not added to acc2.");
 
     });
+
+
+
+
+
+
+    
 
     it("7) Acc1 add metadata for permission0", async () => {
         // Verify Metadata system is empty
