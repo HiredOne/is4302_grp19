@@ -36,17 +36,15 @@ contract('IS4302 Project', function (accounts) {
 
     // During Deployment, 'DBAdmin' has been created --> accounts(0)
 
-
-
-
     it("1) Create admin (acc1)", async () => {
 
+        // Description
         /*
-            a) Create admin (acc1)
-            b) Create user (acc1)
-            c) Give user admin rights
+            a) Create user (acc1)
+            b) Give user admin rights
         */
 
+        // Test
         // Check Create User
         assert.equal(1, await userInstance.getTotalNumberOfUsers(), "DBAdmin not created.");
         await userInstance.createUser("acc1" ,{ from: accounts[1] });
@@ -63,7 +61,28 @@ contract('IS4302 Project', function (accounts) {
 
 
 
-    it("2) acc2 upload a dataset to a new role (role 0)", async () => {
+
+    it("2) Create user (acc2)", async () => {
+
+        /*
+            b) Create user (acc2)
+        */
+
+        // Check Create User
+        await userInstance.createUser("acc2" ,{ from: accounts[2] });
+        assert.equal(3, await userInstance.getTotalNumberOfUsers(), "Acc2 creation failed.");
+
+        // Check that acc2 is normal user rights
+        assert.equal(false, await userInstance.checkIsAdmin(accounts[2]), "Acc2 is supposed to be a normal user.");       
+    });
+
+    // acc2 created -> User --> accounts[2]
+
+
+
+
+
+    it("3) acc2 upload a dataset to a new role (role 0)", async () => {
 
         /*
             a) Submit new request to upload a dataset 
@@ -104,34 +123,11 @@ contract('IS4302 Project', function (accounts) {
     // role0 created together with a new dataset (new permissions)
 
 
+    
 
 
 
 
-
-    it("3) Create user (acc2)", async () => {
-
-        /*
-            b) Create user (acc2)
-        */
-
-        // Check Create User
-        await userInstance.createUser("acc2" ,{ from: accounts[2] });
-        assert.equal(3, await userInstance.getTotalNumberOfUsers(), "Acc2 creation failed.");
-
-        // Check that acc2 is normal user rights
-        assert.equal(false, await userInstance.checkIsAdmin(accounts[2]), "Acc2 is supposed to be a normal user.");       
-    });
-
-    // acc2 created -> User --> accounts[2]
-
-
-
-
-
-
-
-   
 
     it("4) Create a new role (role1)", async () => {
 
@@ -211,7 +207,7 @@ contract('IS4302 Project', function (accounts) {
         /*
             a) Submit request new request to add user to role
             b) Approve request
-            c) Assign role (role1) to user (acc2)
+            c) Assign role (role1) to user (acc1) and (acc2)
         */
 
         // Create request to add acc1 to role1
@@ -237,11 +233,21 @@ contract('IS4302 Project', function (accounts) {
     });
 
 
+    /*
+        == USERS ==
+        acc1 -> Admin
+        acc2 -> Normal user
+
+        == ROLE ==
+        role1
+
+        == Dataset (PERMISSION) ==
+        permission0
+    */
 
 
 
 
-    
 
     it("7) Acc1 add metadata for permission0", async () => {
         // Verify Metadata system is empty
