@@ -5,7 +5,6 @@ import "./PriorityQueue.sol";
 
 // Upstream
 import "./User.sol";
-import "./Pointer.sol";
 
 // Downstream 
 import "./DataLineage.sol";

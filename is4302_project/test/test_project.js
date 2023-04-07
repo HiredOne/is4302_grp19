@@ -7,7 +7,6 @@ var User = artifacts.require("../contracts/User.sol");
 var Permission = artifacts.require("../contracts/Permission.sol");
 var Role = artifacts.require("../contracts/Role.sol");
 var Metadata = artifacts.require("../contracts/Metadata.sol");
-var Pointer = artifacts.require("../contracts/Pointer.sol");
 var DataLineage = artifacts.require("../contracts/DataLineage.sol");
 var DatasetUploader = artifacts.require("../contracts/DatasetUploader.sol");
 var RequestApprovalManagement = artifacts.require("../contracts/RequestApprovalManagement.sol");
@@ -23,7 +22,6 @@ contract('IS4302 Project', function (accounts) {
         permissionInstance = await Permission.deployed();
         roleInstance = await Role.deployed();
         metadataInstance = await Metadata.deployed();
-        pointerInstance = await Pointer.deployed();
         dataLineageInstance = await DataLineage.deployed();
         datasetUploaderInstance = await DatasetUploader.deployed();
         requestApprovalManagementInstance = await RequestApprovalManagement.deployed();
