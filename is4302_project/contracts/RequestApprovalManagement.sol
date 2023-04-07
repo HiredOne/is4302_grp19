@@ -117,12 +117,6 @@ contract RequestApprovalManagement {
         totalNumberOfRequest = totalNumberOfRequest + 1;
     }
 
-    // function removeRoleRequest(uint256 roleID, address userID) public {
-    //     Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.removeRoleRequest, block.timestamp,block.timestamp, "", "", roleID,0,userID, "");
-    //     requestsMapping[totalNumberOfRequest] = newRequest;
-    //     totalNumberOfRequest = totalNumberOfRequest + 1;
-    // }
-
     function addExistingDatasetToRoleRequest(uint256 permissionID, uint256 roleID) public {
         Request memory newRequest = Request(msg.sender, address(0), statusEnum.pending, requestTypeEnum.addExistingDatasetToRoleRequest, block.timestamp,block.timestamp, "", "", roleID,permissionID,address(0), "");
         requestsMapping[totalNumberOfRequest] = newRequest;
@@ -180,13 +174,6 @@ contract RequestApprovalManagement {
 
         emit createNewRoleRequestApproved(roleName);
     }
-
-    // function removeRole(uint256 roleID, address userID) public {
-    //     //  Remove role
-    //     roleContract.removeRoleUser(roleID, userID);
-
-    //     emit removeRoleRequestApproved(roleID, userID);
-    // }
 
     function addExistingDatasetToRole(uint256 permissionID, uint256 roleID) public {
 
