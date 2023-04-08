@@ -326,36 +326,34 @@ contract('IS4302 Project', function (accounts) {
     it("9) Test priority", async () =>{
        
         /*
-            a) Create a second query with priority 0 (0 tokens)
-            b) Create a third query with priority 1 (1 token)
-            c) Verify that query3 comes to the head of the queue since the 
-            first 2 queries have a priority of 0
+            a) Create a second query with priority 1 (1 token)
+            c) Verify that query2 comes to the head of the queue since the 
+            first query has a priority of 0
         */
 
         // Create queries, then submit for verification
         // Query2: "SELECT column1 FROM schema0.table0"
-        // Query3: "SELECT column2 FROM schema0.table0"
         // Dataset Name: "schema0.table0"
         let query2 = "SELECT column1 FROM schema0.table0";
-        let query3 = "SELECT column2 FROM schema0.table0"; // We prioritise this query
         let datasetName1 = "schema0.table0";
-        await queryDatasetInstance.runQuery(datasetName1, query2, datasetName1, "nil", 0, 0, { from: accounts[1] });
+        await queryDatasetInstance.runQuery(datasetName1, query2, datasetName1, "nil", 1, 0, { from: accounts[2] });
         assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
-        await queryDatasetInstance.runQuery(datasetName1, query3, datasetName1, "nil", 1, 0, { from: accounts[1] }); // Prioritise third query with 1 token
-        assert.equal(3, await queueSystemInstance.getQueueLength(), 'Third Query not enqueued.');
-        assert.equal(0, await userInstance.getTokenBalance(accounts[1]), 'Tokens not deducted.'); // Verify deduction of tokens after use
+        assert.equal(0, await userInstance.getTokenBalance(accounts[2]), 'Tokens not deducted.'); // Verify deduction of tokens after use
 
-        let outcome = await queueSystemInstance.pop(); // The first query should now be query 3.
+        let outcome = await queueSystemInstance.pop(); // The first query should now be query2.
         truffleAssert.eventEmitted(outcome, 'queryExecuted', {
-            query : "SELECT column2 FROM schema0.table0"
+            query : "SELECT column1 FROM schema0.table0"
         }, 'Query not prioritised');
-        assert.equal(2, await queueSystemInstance.getQueueLength(), "Query not deleted after execution.");
+        assert.equal(1, await queueSystemInstance.getQueueLength(), "Query not deleted after execution.");
+
+        // Empty previous queries
+        await queueSystemInstance.pop();
     });
 
     /*
-        Query2 and query3 submitted to (queueSystem)
-        Query3 popped from queueSystem
-        QueueSystem length == 2
+        Query2 submitted to (queueSystem)
+        Query2 popped from queueSystem
+        QueueSystem length == 1
     */
 
     it("10) Submitting a permanent query", async () => {
@@ -369,11 +367,7 @@ contract('IS4302 Project', function (accounts) {
             f) Execute second permanent query
             g) Verify data lineage after execution of second query
         */
-        
-        // Empty previous queries
-        await queueSystemInstance.pop();
-        await queueSystemInstance.pop();
-        
+                
         // Create permanent queries
         // Dataset Name 1: "schema0.table0"
         // Dataset Name 2: "schema0.table1"
@@ -385,13 +379,13 @@ contract('IS4302 Project', function (accounts) {
         let permQuery2 = "CREATE TABLE schema0.table1 AS SELECT * FROM schema0.table0"; // Second query
 
         // Enqueue queries
-        await queryDatasetInstance.runQuery(datasetName1, permQuery, datasetName1, "nil", 1, 0, { from: accounts[2] }); // Prioritise with 1 token
+        await queryDatasetInstance.runQuery(datasetName1, permQuery, datasetName1, "nil", 1, 0, { from: accounts[1] }); // Prioritise with 1 token
         assert.equal(1, await queueSystemInstance.getQueueLength(), 'First Query not enqueued.');
         await queryDatasetInstance.runQuery(datasetName2, permQuery2, datasetName2, datasetName1, 0, 0, { from: accounts[2] });
         assert.equal(2, await queueSystemInstance.getQueueLength(), 'Second Query not enqueued.');
 
         // Execute first query
-        assert.equal(0, await userInstance.getTokenBalance(accounts[2]), 'Tokens not deducted.'); // Verify deduction of tokens after use
+        assert.equal(0, await userInstance.getTokenBalance(accounts[1]), 'Tokens not deducted.'); // Verify deduction of tokens after use
         await queueSystemInstance.pop();
         // Verify data lineage after execution of first query
         let lineage1 = "DELETE FROM schema0.table0; ";
