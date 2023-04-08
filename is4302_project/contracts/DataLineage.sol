@@ -49,6 +49,10 @@ contract DataLineage {
         return datasets[id].lineage;
     }
 
+    function getPointer(string memory id) public view returns(string memory) {
+        return datasets[id].pointer;
+    }
+
     function getParent(string memory id) public view returns(string memory) {
         return datasets[id].parent;
     }

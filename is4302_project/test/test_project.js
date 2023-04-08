@@ -116,6 +116,12 @@ contract('IS4302 Project', function (accounts) {
         assert.equal(1, await roleInstance.getNumRoles(), 'Role creation failed.');
         assert.equal(1, await permissionInstance.getNumPermissions(), 'Permission creation failed.');
         assert.equal(1, await userInstance.getTokenBalance(accounts[2]), "Token issuance failed");
+
+        // Check if this process has been recorded in data lineage
+        let pointerGenerated = await requestApprovalManagementInstance.getLatestPointerGenerated();
+        let pointerStoredInLineage = await dataLineageInstance.getPointer('schema0.table0');
+        assert.equal(pointerGenerated, pointerStoredInLineage, "Data upload did not get recorded in Datalineage");
+
     });
 
     // role0 created together with a new dataset (new permissions)
