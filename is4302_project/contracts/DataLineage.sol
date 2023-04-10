@@ -22,7 +22,7 @@ contract DataLineage {
     event addDataset(string id);
     event addChildren(string parent, string children);
 
-    //Call this for perm changes to datasets
+    // Call this for perm changes to datasets
     function changeExistingDataset(string memory new_id, string memory pointer, address requestor, string memory query, string memory parent) public {
         string memory _lineage = datasets[parent].lineage;
         _lineage = _lineage.concat(query).concat("; ");
@@ -32,7 +32,7 @@ contract DataLineage {
         addChild(parent, new_id);
     }
 
-    //Call this for new datasets.
+    // Call this for new datasets.
     function addNewDataset(string memory id, string memory pointer, address requestor) public {
         dataset memory newDataset = dataset(id, pointer, requestor, id, id, "", "");
         datasets[id] = newDataset;
