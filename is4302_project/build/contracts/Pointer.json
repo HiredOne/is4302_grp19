@@ -49,14 +49,14 @@
     "absolutePath": "project:/contracts/Pointer.sol",
     "exportedSymbols": {
       "Pointer": [
-        1490
+        1458
       ]
     },
-    "id": 1491,
+    "id": 1459,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1449,
+        "id": 1417,
         "literals": [
           "solidity",
           "^",
@@ -72,23 +72,23 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1490,
+        "id": 1458,
         "linearizedBaseContracts": [
-          1490
+          1458
         ],
         "name": "Pointer",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "Pointer.pointer",
-            "id": 1452,
+            "id": 1420,
             "members": [
               {
                 "constant": false,
-                "id": 1451,
+                "id": 1419,
                 "name": "name",
                 "nodeType": "VariableDeclaration",
-                "scope": 1452,
+                "scope": 1420,
                 "src": "140:11:5",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -97,7 +97,7 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 1450,
+                  "id": 1418,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "140:6:5",
@@ -112,27 +112,27 @@
             ],
             "name": "pointer",
             "nodeType": "StructDefinition",
-            "scope": 1490,
+            "scope": 1458,
             "src": "114:45:5",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 1456,
+            "id": 1424,
             "name": "points",
             "nodeType": "VariableDeclaration",
-            "scope": 1490,
+            "scope": 1458,
             "src": "167:34:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1452_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1420_storage_$",
               "typeString": "mapping(uint256 => struct Pointer.pointer)"
             },
             "typeName": {
-              "id": 1455,
+              "id": 1423,
               "keyType": {
-                "id": 1453,
+                "id": 1421,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "175:7:5",
@@ -144,18 +144,18 @@
               "nodeType": "Mapping",
               "src": "167:27:5",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1452_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1420_storage_$",
                 "typeString": "mapping(uint256 => struct Pointer.pointer)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 1454,
+                "id": 1422,
                 "name": "pointer",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 1452,
+                "referencedDeclaration": 1420,
                 "src": "186:7:5",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_pointer_$1452_storage_ptr",
+                  "typeIdentifier": "t_struct$_pointer_$1420_storage_ptr",
                   "typeString": "struct Pointer.pointer"
                 }
               }
@@ -165,10 +165,10 @@
           },
           {
             "constant": false,
-            "id": 1459,
+            "id": 1427,
             "name": "numOfPointers",
             "nodeType": "VariableDeclaration",
-            "scope": 1490,
+            "scope": 1458,
             "src": "208:25:5",
             "stateVariable": true,
             "storageLocation": "default",
@@ -177,7 +177,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 1457,
+              "id": 1425,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "208:7:5",
@@ -189,7 +189,7 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 1458,
+              "id": 1426,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -208,14 +208,14 @@
           },
           {
             "body": {
-              "id": 1475,
+              "id": 1443,
               "nodeType": "Block",
               "src": "289:82:5",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1470,
+                    "id": 1438,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -224,25 +224,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1464,
+                        "id": 1432,
                         "name": "points",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1456,
+                        "referencedDeclaration": 1424,
                         "src": "300:6:5",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1452_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1420_storage_$",
                           "typeString": "mapping(uint256 => struct Pointer.pointer storage ref)"
                         }
                       },
-                      "id": 1466,
+                      "id": 1434,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1465,
+                        "id": 1433,
                         "name": "numOfPointers",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1459,
+                        "referencedDeclaration": 1427,
                         "src": "307:13:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -256,7 +256,7 @@
                       "nodeType": "IndexAccess",
                       "src": "300:21:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_pointer_$1452_storage",
+                        "typeIdentifier": "t_struct$_pointer_$1420_storage",
                         "typeString": "struct Pointer.pointer storage ref"
                       }
                     },
@@ -267,11 +267,11 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 1468,
+                          "id": 1436,
                           "name": "name",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1461,
+                          "referencedDeclaration": 1429,
                           "src": "332:4:5",
                           "typeDescriptions": {
                             "typeIdentifier": "t_string_memory_ptr",
@@ -286,18 +286,18 @@
                             "typeString": "string memory"
                           }
                         ],
-                        "id": 1467,
+                        "id": 1435,
                         "name": "pointer",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1452,
+                        "referencedDeclaration": 1420,
                         "src": "324:7:5",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_struct$_pointer_$1452_storage_ptr_$",
+                          "typeIdentifier": "t_type$_t_struct$_pointer_$1420_storage_ptr_$",
                           "typeString": "type(struct Pointer.pointer storage pointer)"
                         }
                       },
-                      "id": 1469,
+                      "id": 1437,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -307,24 +307,24 @@
                       "nodeType": "FunctionCall",
                       "src": "324:13:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_pointer_$1452_memory",
+                        "typeIdentifier": "t_struct$_pointer_$1420_memory",
                         "typeString": "struct Pointer.pointer memory"
                       }
                     },
                     "src": "300:37:5",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_pointer_$1452_storage",
+                      "typeIdentifier": "t_struct$_pointer_$1420_storage",
                       "typeString": "struct Pointer.pointer storage ref"
                     }
                   },
-                  "id": 1471,
+                  "id": 1439,
                   "nodeType": "ExpressionStatement",
                   "src": "300:37:5"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1473,
+                    "id": 1441,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -335,11 +335,11 @@
                     "src": "348:15:5",
                     "subExpression": {
                       "argumentTypes": null,
-                      "id": 1472,
+                      "id": 1440,
                       "name": "numOfPointers",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1459,
+                      "referencedDeclaration": 1427,
                       "src": "348:13:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -351,29 +351,29 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 1474,
+                  "id": 1442,
                   "nodeType": "ExpressionStatement",
                   "src": "348:15:5"
                 }
               ]
             },
             "documentation": null,
-            "id": 1476,
+            "id": 1444,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "addPointer",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1462,
+              "id": 1430,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1461,
+                  "id": 1429,
                   "name": "name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1476,
+                  "scope": 1444,
                   "src": "262:18:5",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -382,7 +382,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1460,
+                    "id": 1428,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "262:6:5",
@@ -398,12 +398,12 @@
               "src": "261:20:5"
             },
             "returnParameters": {
-              "id": 1463,
+              "id": 1431,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "289:0:5"
             },
-            "scope": 1490,
+            "scope": 1458,
             "src": "242:129:5",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -411,7 +411,7 @@
           },
           {
             "body": {
-              "id": 1488,
+              "id": 1456,
               "nodeType": "Block",
               "src": "443:41:5",
               "statements": [
@@ -422,25 +422,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1483,
+                        "id": 1451,
                         "name": "points",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1456,
+                        "referencedDeclaration": 1424,
                         "src": "461:6:5",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1452_storage_$",
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_pointer_$1420_storage_$",
                           "typeString": "mapping(uint256 => struct Pointer.pointer storage ref)"
                         }
                       },
-                      "id": 1485,
+                      "id": 1453,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1484,
+                        "id": 1452,
                         "name": "id",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1478,
+                        "referencedDeclaration": 1446,
                         "src": "468:2:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -454,48 +454,48 @@
                       "nodeType": "IndexAccess",
                       "src": "461:10:5",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_pointer_$1452_storage",
+                        "typeIdentifier": "t_struct$_pointer_$1420_storage",
                         "typeString": "struct Pointer.pointer storage ref"
                       }
                     },
-                    "id": 1486,
+                    "id": 1454,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "name",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 1451,
+                    "referencedDeclaration": 1419,
                     "src": "461:15:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 1482,
-                  "id": 1487,
+                  "functionReturnParameters": 1450,
+                  "id": 1455,
                   "nodeType": "Return",
                   "src": "454:22:5"
                 }
               ]
             },
             "documentation": null,
-            "id": 1489,
+            "id": 1457,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getName",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1479,
+              "id": 1447,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1478,
+                  "id": 1446,
                   "name": "id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1489,
+                  "scope": 1457,
                   "src": "396:10:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -504,7 +504,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1477,
+                    "id": 1445,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "396:7:5",
@@ -520,15 +520,15 @@
               "src": "395:12:5"
             },
             "returnParameters": {
-              "id": 1482,
+              "id": 1450,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1481,
+                  "id": 1449,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1489,
+                  "scope": 1457,
                   "src": "428:13:5",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -537,7 +537,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1480,
+                    "id": 1448,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "428:6:5",
@@ -552,14 +552,14 @@
               ],
               "src": "427:15:5"
             },
-            "scope": 1490,
+            "scope": 1458,
             "src": "379:105:5",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1491,
+        "scope": 1459,
         "src": "27:460:5"
       }
     ],
@@ -570,7 +570,7 @@
       "absolutePath": "project:/contracts/Pointer.sol",
       "exportedSymbols": {
         "Pointer": [
-          1490
+          1458
         ]
       }
     },
@@ -584,7 +584,7 @@
             ".0"
           ]
         },
-        "id": 1449,
+        "id": 1417,
         "name": "PragmaDirective",
         "src": "0:23:5"
       },
@@ -600,17 +600,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            1490
+            1458
           ],
           "name": "Pointer",
-          "scope": 1491
+          "scope": 1459
         },
         "children": [
           {
             "attributes": {
               "canonicalName": "Pointer.pointer",
               "name": "pointer",
-              "scope": 1490,
+              "scope": 1458,
               "visibility": "public"
             },
             "children": [
@@ -618,7 +618,7 @@
                 "attributes": {
                   "constant": false,
                   "name": "name",
-                  "scope": 1452,
+                  "scope": 1420,
                   "stateVariable": false,
                   "storageLocation": "default",
                   "type": "string",
@@ -631,17 +631,17 @@
                       "name": "string",
                       "type": "string"
                     },
-                    "id": 1450,
+                    "id": 1418,
                     "name": "ElementaryTypeName",
                     "src": "140:6:5"
                   }
                 ],
-                "id": 1451,
+                "id": 1419,
                 "name": "VariableDeclaration",
                 "src": "140:11:5"
               }
             ],
-            "id": 1452,
+            "id": 1420,
             "name": "StructDefinition",
             "src": "114:45:5"
           },
@@ -649,7 +649,7 @@
             "attributes": {
               "constant": false,
               "name": "points",
-              "scope": 1490,
+              "scope": 1458,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "mapping(uint256 => struct Pointer.pointer)",
@@ -667,7 +667,7 @@
                       "name": "uint256",
                       "type": "uint256"
                     },
-                    "id": 1453,
+                    "id": 1421,
                     "name": "ElementaryTypeName",
                     "src": "175:7:5"
                   },
@@ -675,20 +675,20 @@
                     "attributes": {
                       "contractScope": null,
                       "name": "pointer",
-                      "referencedDeclaration": 1452,
+                      "referencedDeclaration": 1420,
                       "type": "struct Pointer.pointer"
                     },
-                    "id": 1454,
+                    "id": 1422,
                     "name": "UserDefinedTypeName",
                     "src": "186:7:5"
                   }
                 ],
-                "id": 1455,
+                "id": 1423,
                 "name": "Mapping",
                 "src": "167:27:5"
               }
             ],
-            "id": 1456,
+            "id": 1424,
             "name": "VariableDeclaration",
             "src": "167:34:5"
           },
@@ -696,7 +696,7 @@
             "attributes": {
               "constant": false,
               "name": "numOfPointers",
-              "scope": 1490,
+              "scope": 1458,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "uint256",
@@ -708,7 +708,7 @@
                   "name": "uint256",
                   "type": "uint256"
                 },
-                "id": 1457,
+                "id": 1425,
                 "name": "ElementaryTypeName",
                 "src": "208:7:5"
               },
@@ -725,12 +725,12 @@
                   "type": "int_const 0",
                   "value": "0"
                 },
-                "id": 1458,
+                "id": 1426,
                 "name": "Literal",
                 "src": "232:1:5"
               }
             ],
-            "id": 1459,
+            "id": 1427,
             "name": "VariableDeclaration",
             "src": "208:25:5"
           },
@@ -744,7 +744,7 @@
                 null
               ],
               "name": "addPointer",
-              "scope": 1490,
+              "scope": 1458,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -756,7 +756,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "name",
-                      "scope": 1476,
+                      "scope": 1444,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -769,17 +769,17 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 1460,
+                        "id": 1428,
                         "name": "ElementaryTypeName",
                         "src": "262:6:5"
                       }
                     ],
-                    "id": 1461,
+                    "id": 1429,
                     "name": "VariableDeclaration",
                     "src": "262:18:5"
                   }
                 ],
-                "id": 1462,
+                "id": 1430,
                 "name": "ParameterList",
                 "src": "261:20:5"
               },
@@ -790,7 +790,7 @@
                   ]
                 },
                 "children": [],
-                "id": 1463,
+                "id": 1431,
                 "name": "ParameterList",
                 "src": "289:0:5"
               },
@@ -825,11 +825,11 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1456,
+                                  "referencedDeclaration": 1424,
                                   "type": "mapping(uint256 => struct Pointer.pointer storage ref)",
                                   "value": "points"
                                 },
-                                "id": 1464,
+                                "id": 1432,
                                 "name": "Identifier",
                                 "src": "300:6:5"
                               },
@@ -839,16 +839,16 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1459,
+                                  "referencedDeclaration": 1427,
                                   "type": "uint256",
                                   "value": "numOfPointers"
                                 },
-                                "id": 1465,
+                                "id": 1433,
                                 "name": "Identifier",
                                 "src": "307:13:5"
                               }
                             ],
-                            "id": 1466,
+                            "id": 1434,
                             "name": "IndexAccess",
                             "src": "300:21:5"
                           },
@@ -878,11 +878,11 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1452,
+                                  "referencedDeclaration": 1420,
                                   "type": "type(struct Pointer.pointer storage pointer)",
                                   "value": "pointer"
                                 },
-                                "id": 1467,
+                                "id": 1435,
                                 "name": "Identifier",
                                 "src": "324:7:5"
                               },
@@ -892,26 +892,26 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1461,
+                                  "referencedDeclaration": 1429,
                                   "type": "string memory",
                                   "value": "name"
                                 },
-                                "id": 1468,
+                                "id": 1436,
                                 "name": "Identifier",
                                 "src": "332:4:5"
                               }
                             ],
-                            "id": 1469,
+                            "id": 1437,
                             "name": "FunctionCall",
                             "src": "324:13:5"
                           }
                         ],
-                        "id": 1470,
+                        "id": 1438,
                         "name": "Assignment",
                         "src": "300:37:5"
                       }
                     ],
-                    "id": 1471,
+                    "id": 1439,
                     "name": "ExpressionStatement",
                     "src": "300:37:5"
                   },
@@ -935,31 +935,31 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1459,
+                              "referencedDeclaration": 1427,
                               "type": "uint256",
                               "value": "numOfPointers"
                             },
-                            "id": 1472,
+                            "id": 1440,
                             "name": "Identifier",
                             "src": "348:13:5"
                           }
                         ],
-                        "id": 1473,
+                        "id": 1441,
                         "name": "UnaryOperation",
                         "src": "348:15:5"
                       }
                     ],
-                    "id": 1474,
+                    "id": 1442,
                     "name": "ExpressionStatement",
                     "src": "348:15:5"
                   }
                 ],
-                "id": 1475,
+                "id": 1443,
                 "name": "Block",
                 "src": "289:82:5"
               }
             ],
-            "id": 1476,
+            "id": 1444,
             "name": "FunctionDefinition",
             "src": "242:129:5"
           },
@@ -973,7 +973,7 @@
                 null
               ],
               "name": "getName",
-              "scope": 1490,
+              "scope": 1458,
               "stateMutability": "view",
               "superFunction": null,
               "visibility": "public"
@@ -985,7 +985,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "id",
-                      "scope": 1489,
+                      "scope": 1457,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -998,17 +998,17 @@
                           "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 1477,
+                        "id": 1445,
                         "name": "ElementaryTypeName",
                         "src": "396:7:5"
                       }
                     ],
-                    "id": 1478,
+                    "id": 1446,
                     "name": "VariableDeclaration",
                     "src": "396:10:5"
                   }
                 ],
-                "id": 1479,
+                "id": 1447,
                 "name": "ParameterList",
                 "src": "395:12:5"
               },
@@ -1018,7 +1018,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 1489,
+                      "scope": 1457,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "string",
@@ -1031,17 +1031,17 @@
                           "name": "string",
                           "type": "string"
                         },
-                        "id": 1480,
+                        "id": 1448,
                         "name": "ElementaryTypeName",
                         "src": "428:6:5"
                       }
                     ],
-                    "id": 1481,
+                    "id": 1449,
                     "name": "VariableDeclaration",
                     "src": "428:13:5"
                   }
                 ],
-                "id": 1482,
+                "id": 1450,
                 "name": "ParameterList",
                 "src": "427:15:5"
               },
@@ -1049,7 +1049,7 @@
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 1482
+                      "functionReturnParameters": 1450
                     },
                     "children": [
                       {
@@ -1060,7 +1060,7 @@
                           "isPure": false,
                           "lValueRequested": false,
                           "member_name": "name",
-                          "referencedDeclaration": 1451,
+                          "referencedDeclaration": 1419,
                           "type": "string storage ref"
                         },
                         "children": [
@@ -1080,11 +1080,11 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1456,
+                                  "referencedDeclaration": 1424,
                                   "type": "mapping(uint256 => struct Pointer.pointer storage ref)",
                                   "value": "points"
                                 },
-                                "id": 1483,
+                                "id": 1451,
                                 "name": "Identifier",
                                 "src": "461:6:5"
                               },
@@ -1094,46 +1094,46 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1478,
+                                  "referencedDeclaration": 1446,
                                   "type": "uint256",
                                   "value": "id"
                                 },
-                                "id": 1484,
+                                "id": 1452,
                                 "name": "Identifier",
                                 "src": "468:2:5"
                               }
                             ],
-                            "id": 1485,
+                            "id": 1453,
                             "name": "IndexAccess",
                             "src": "461:10:5"
                           }
                         ],
-                        "id": 1486,
+                        "id": 1454,
                         "name": "MemberAccess",
                         "src": "461:15:5"
                       }
                     ],
-                    "id": 1487,
+                    "id": 1455,
                     "name": "Return",
                     "src": "454:22:5"
                   }
                 ],
-                "id": 1488,
+                "id": 1456,
                 "name": "Block",
                 "src": "443:41:5"
               }
             ],
-            "id": 1489,
+            "id": 1457,
             "name": "FunctionDefinition",
             "src": "379:105:5"
           }
         ],
-        "id": 1490,
+        "id": 1458,
         "name": "ContractDefinition",
         "src": "27:460:5"
       }
     ],
-    "id": 1491,
+    "id": 1459,
     "name": "SourceUnit",
     "src": "0:487:5"
   },
@@ -1150,8 +1150,7 @@
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-04-05T04:58:40.277Z",
-  "networkType": "ethereum",
+  "updatedAt": "2023-04-06T01:16:22.247Z",
   "devdoc": {
     "methods": {}
   },
