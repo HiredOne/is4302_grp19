@@ -37,7 +37,7 @@ contract('IS4302 Project', function (accounts) {
     it("1) Create user (acc1)", async () => {
 
         /*
-            b) Create user (acc1)
+            a) Create user (acc1)
         */
 
         // Check Create User
@@ -290,7 +290,7 @@ contract('IS4302 Project', function (accounts) {
        
         /*
             a) Create a second query with priority 1 (1 token)
-            c) Verify that query2 comes to the head of the queue since the 
+            b) Verify that query2 comes to the head of the queue since the 
             first query has a priority of 0
         */
 
